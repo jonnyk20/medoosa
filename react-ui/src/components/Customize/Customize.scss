@@ -1,0 +1,51 @@
+.customize {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  justify-content: center;
+
+  &__avatar {
+    display: grid;
+    justify-content: center;
+  }
+
+  &__selection {
+    width: 100%;
+    margin: auto;
+    max-width: 500px;
+    border: solid 1px white;
+    text-align: center;
+
+    .icon {
+      font-size: 36px;
+      margin-top: 10px;
+      margin-bottom: -15px;
+    }
+  }
+
+  &__confirmation {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+
+    .button {
+      width: 200px;
+      height: 50px;
+      font-size: 36px;
+      padding: 0;
+      border-width: 5px;
+      border-radius: 20px;
+      animation: pulse 1s infinite;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(82, 223, 255, 0.5);
+  }
+
+  100% {
+    box-shadow: 0 0 0 15px rgba(82, 223, 255, 0);
+  }
+}

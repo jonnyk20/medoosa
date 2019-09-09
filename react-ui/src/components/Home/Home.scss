@@ -1,0 +1,67 @@
+html,
+body {
+  height: 100%;
+  margin: 0px;
+  background: black;
+}
+
+.grid {
+  display: grid;
+  grid-template-rows: 4fr 1fr 3fr auto;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 1000px;
+  margin: 20px auto;
+  width: 100%;
+}
+
+.cell {
+  border: solid 1px white;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--avatar {
+    grid-column: 1 / -1;
+  }
+
+  &--progress {
+    grid-column: 1 / -1;
+  }
+}
+
+
+.container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+}
+
+
+
+.circle {
+  height: 75px;
+  width: 75px;
+  border: solid 1px white;
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px #fff;
+}
+
+
+.avatar .circle {
+  position: absolute;
+  height: 150px;
+  width: 150px
+}
+
+.dot {
+  background-color: rgba(74, 206, 255, 0.38);
+  box-shadow: 0px 0px 5px rgba(74, 206, 255, 0.38);
+  position: fixed;
+  border-radius: 50%;
+  height: 2px;
+  width: 2px;
+}

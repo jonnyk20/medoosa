@@ -1,0 +1,41 @@
+.spotting-confirmation {
+  height: 150px;
+  width: 150px;
+  color: white;
+  position: absolute;
+  top: 0;
+  font-size: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fade 1s;
+
+  &__circle {
+    background: green;
+    height: 75%;
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

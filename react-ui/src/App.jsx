@@ -1,16 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Share from "./Share";
+import { Provider } from "react-redux";
+import logger from "redux-logger";
+import {
+  createStore as reduxCreateStore,
+  applyMiddleware,
+  compose
+} from "redux";
+import Share from "./containers/Share/Share";
+import Play from "./containers/Play/Play";
 import Home from "./Home";
+import scatterDots from "./utils/scatterDots";
 import "./App.scss";
+import rootReducer from "./redux/reducers";
+
+const composeEnhancer =
+  typeof window !== "undefined"
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : compose;
+
+const createStore = () =>
+  reduxCreateStore(rootReducer, composeEnhancer(applyMiddleware(logger)));
 
 function App() {
+  useEffect(() => {
+    scatterDots();
+  }, []);
+
   return (
     <Router>
-      <div className="App">
-        <Route path="/" exact component={Home} />
-        <Route path="/share" exact component={Share} />
-      </div>
+      <Provider store={createStore()}>
+        <div className="App">
+          <Route path="/" exact component={Home} />
+          <Route path="/play" exact component={Play} />
+          <Route path="/share" exact component={Share} />
+        </div>
+      </Provider>
     </Router>
   );
 }

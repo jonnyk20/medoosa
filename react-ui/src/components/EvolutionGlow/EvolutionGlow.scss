@@ -1,0 +1,40 @@
+.evolution-glow {
+  height: 150px;
+  width: 150px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: skyblue;
+  opacity: 0;
+  animation: fade 3s, pulse 1s infinite;
+  border-radius: 50%;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(82, 223, 255, 0.5);
+  }
+
+  100% {
+    box-shadow: 0 0 0 15px rgba(82, 223, 255, 0);
+  }
+}

@@ -1,0 +1,71 @@
+.spot {
+  height: 50px;
+  width: 50px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+
+  &--miss {
+    animation: pulse-miss 0.5s infinite, fade 0.5s;
+  }
+
+  &--correct {
+    animation: pulse-correct 0.5s infinite, fade 0.5s;
+    background: rgba(82, 255, 131, 0.7);
+  }
+
+  &--incorrect {
+    animation: pulse-incorrect 0.5s infinite, fade 0.5s;
+    background: rgba(255, 82, 235, 0.7);
+  }
+}
+
+@keyframes pulse-miss {
+  0% {
+    box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.75);
+  }
+
+  100% {
+    box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes pulse-correct {
+  0% {
+    box-shadow: 0 0 0 0px rgba(82, 255, 131, 0.7);
+  }
+
+  100% {
+    box-shadow: 0 0 0 15px rgba(82, 255, 131, 0);
+  }
+}
+
+@keyframes pulse-incorrect {
+  0% {
+    box-shadow: 0 0 0 0px rgba(255, 82, 235, 0.7);
+  }
+
+  100% {
+    box-shadow: 0 0 0 15px rgba(255, 82, 235, 0);
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

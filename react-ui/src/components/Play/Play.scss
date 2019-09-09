@@ -1,0 +1,99 @@
+.play {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  &__video {
+    position: relative;
+    margin: auto;
+    grid-column: 1 / -1;
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+  }
+
+  &__avatar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    min-height: 200px;
+    padding-right: 20px;
+  }
+
+  &__target {
+    display: grid;
+    align-items: center;
+    min-height: 150px;
+    padding: 10px;
+
+    .play__target-image {
+      position: relative;
+      margin-left: 10px;
+      width: 150px;
+
+      img {
+        width: 150px;
+      }
+    }
+  }
+
+  &__intro {
+    display: flex;
+    align-items: center;
+
+    .text-box {
+      width: 150px;
+      background: rgba(0, 0, 0, 0.687);
+      font-size: 16px;
+
+      .brand-text {
+        color: skyblue;
+        font-weight: bold;
+        font-size: 18px;
+      }
+    }
+  }
+
+  &__finish {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    background: rgba(0, 0, 0, 0.687);
+    font-size: 16px;
+    flex-direction: column;
+    justify-content: center;
+
+    p {
+      margin: 0;
+    }
+
+    .brand-text {
+      color: skyblue;
+      font-weight: bold;
+      font-size: 18px;
+      justify-content: center;
+    }
+
+    .button {
+      background-color: skyblue;
+      color: black;
+      border-radius: 5px;
+    }
+  }
+
+  &__instructions {
+    grid-column: 1 / -1;
+    padding: 10px;
+
+    .brand-text {
+      font-weight: bold;
+      color: skyblue;
+    }
+  }
+}

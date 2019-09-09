@@ -1,0 +1,11 @@
+@import '../../index.scss';
+
+.bounding-box {
+  border: solid 1px $color-border;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: #00000094;
+  flex-direction: column;
+  color: $color-text;
+}

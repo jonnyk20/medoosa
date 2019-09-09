@@ -1,0 +1,11 @@
+@import '../../styles/index.scss';
+
+.button {
+  margin: 10px 0;
+  color: $color-text;
+  background: black;
+  border: solid 1px $color-border;
+  padding: 10px;
+  cursor: pointer;
+  margin: 10px auto;
+}

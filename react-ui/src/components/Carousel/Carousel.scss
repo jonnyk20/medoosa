@@ -1,0 +1,54 @@
+@import './Carousel-defaults.scss';
+
+
+.carousel {
+  .carousel__item {
+    background: #5f9ea0;
+    border: solid 1px white;
+    color: #5f9ea0;
+    // font-size: 36px;
+    line-height: 100px;
+    margin: 15px;
+    padding: 2%;
+    position: relative;
+    text-align: center;
+    min-height: 50px;
+
+    &:focus {
+      z-index: 1;
+    }
+
+    .color {
+      height: 50px;
+    }
+  }
+
+  .slick-slide * {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .slick-current {
+    transform: scale(1.1);
+    color: blue;
+    z-index: 2;
+
+    .carousel__item {
+      border-width: 3px;
+      animation: pulse 1s infinite;
+    }
+  }
+
+}
+
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(82, 223, 255, 0.5);
+  }
+
+  100% {
+    box-shadow: 0 0 0 15px rgba(82, 223, 255, 0);
+  }
+}

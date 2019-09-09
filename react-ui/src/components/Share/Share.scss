@@ -1,0 +1,25 @@
+.share {
+  padding-top: 20px;
+
+  .community-avatar {
+    text-align: center;
+
+    &__name {
+      margin-top: -10px;
+      color: skyblue;
+    }
+  }
+
+  .final-form {
+    width: 120px;
+    height: 120px;
+  }
+
+  &__avatar {
+    margin-top: 30px;
+  }
+
+  &__input {
+    text-align: center;
+  }
+}

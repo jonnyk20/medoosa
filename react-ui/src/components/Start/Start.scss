@@ -1,0 +1,14 @@
+.start {
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+  flex-direction: column;
+
+  &__instructions {
+    text-align: center;
+    color: skyblue;
+    margin: auto;
+    padding: 10px;
+    background: hsla(0, 0%, 0%, 0.50);
+  }
+}

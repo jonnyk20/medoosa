@@ -1,0 +1,11 @@
+.box {
+  border: solid 1px red;
+  margin-left: -1px;
+  margin-top: -1px;
+  position: absolute;
+
+  &--correct {
+    border-color: green;
+  }
+
+}
