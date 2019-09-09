@@ -79,7 +79,6 @@ const getItems = selections =>
         <Body stage={5} modSelections={selection} />
         <div className="community-avatar__name">{fakeNames[i]}</div>
       </div>
-      <div>Please</div>
     </div>
   ));
 

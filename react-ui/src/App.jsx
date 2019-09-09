@@ -31,7 +31,7 @@ function App() {
     <Router>
       <Provider store={createStore()}>
         <div className="App">
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={Play} />
           <Route path="/play" exact component={Play} />
           <Route path="/share" exact component={Share} />
         </div>
