@@ -1,7 +1,7 @@
 .progress-bar {
   position: relative;
-  height: 20px;
-  width: 175px;
+  height: 100%;
+  width: 100%;
   background: #e3f2fd;
   margin-top: 10px;
 }
@@ -10,7 +10,7 @@
   background: #2196f3;
   height: 100%;
   border-radius: inherit;
-  transition: width 0.2s ease-in;
+  transition: width 2s ease-in;
 }
 
 .progress-bar__button {

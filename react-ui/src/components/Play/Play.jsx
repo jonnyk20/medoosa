@@ -1,23 +1,17 @@
-import React, { useState, useRef, useEffect, Fragment } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import YouTube from "react-youtube";
 import "./Play.scss";
 import Box from "../Box/Box";
 import Body from "../Body";
-import Customize from "../../containers/Customize/Customize";
 import { Link } from "react-router-dom";
-import Modal from "react-modal";
+import LevelUp from "../../containers/LevelUp/LevelUp";
+import { getVideoDimensions } from "../../utils";
 import Button from "../Button/Button";
 import Spot from "../Spot/Spot";
-import EvolutionGlow from "../EvolutionGlow/EvolutionGlow";
+import StageBar from "../StageBar/StageBar";
 import SpottingConfirmation from "../SpottingConfirmation/SpottingConfirmation";
-import { getVideoDimensions } from "../../utils";
-import LevelUp from "../../containers/LevelUp/LevelUp";
 
 const videoId = "4a2cSvTph0M";
-
-const modalStyles = {
-  content: {}
-};
 
 const argMax = array =>
   [].map
@@ -70,9 +64,9 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const [videoDimensions, setVideoDimensions] = useState({});
   const [targetBoxes, setTargetBoxes] = useState([]);
   const [spot, setSpot] = useState(null);
-  const [isEvolving, setIsEvolving] = useState(false);
   const [playerState, setPlayerState] = useState(-1);
   const [isConfirming, setIsConfirming] = useState(false);
+  const [levelUpPending, setLevelUpPending] = useState(false);
   const [isLevelingUp, setIsLevelingUp] = useState(false);
   // -1 – unstarted
   // 0 – ended
@@ -111,7 +105,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
 
   const handleClick = e => {
     const { clientX, clientY } = e;
-    if (isConfirming || isEvolving || !!spot) {
+    if (isConfirming || levelUpPending || !!spot) {
       return;
     }
     const time = video.getCurrentTime();
@@ -168,15 +162,14 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
         setTimeout(() => {
           setIsConfirming(false);
         }, 3000);
-        if (!isEvolving) {
+        if (!isConfirming) {
           setTimeout(() => {
             onHitTarget(hitTarget.labelIndex);
-            setIsLevelingUp(true);
-          }, 1500);
+            // setIsLevelingUp(true);
+          }, 3000);
         }
-        setIsEvolving(true);
         setTimeout(() => {
-          setIsEvolving(false);
+          setLevelUpPending(true);
         }, 3000);
       }
       setTargetBoxes(boxesToRender);
@@ -212,7 +205,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
 
   const targetContent = (
     <div className="play__target">
-      {targetAnimal && (
+      {targetAnimal && !levelUpPending && (
         <div className="play__target-image">
           <img
             src={`https://jk-fish-test.s3.us-east-2.amazonaws.com/medoosa-stock/${targetAnimal.name.replace(
@@ -235,12 +228,25 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
     </div>
   );
 
-  const playContent =
-    stage >= 5
-      ? finishContent
-      : targetAnimal && playerState !== -1
-      ? targetContent
-      : introContent;
+  const levelUpPrompt = (
+    <div>Great Job, now click on the next stage to level up</div>
+  );
+
+  let rightContent = introContent;
+
+  switch (true) {
+    case levelUpPending:
+      rightContent = levelUpPrompt;
+      break;
+    case stage >= 5:
+      rightContent = finishContent;
+      break;
+    case targetAnimal && playerState !== -1:
+      rightContent = targetContent;
+      break;
+    default:
+      break;
+  }
 
   return (
     <div className="play">
@@ -270,10 +276,17 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
           />
         )}
       </div>
+      <div className="play__progress">
+        <StageBar
+          stage={stage}
+          levelUpPending={levelUpPending}
+          onStartLevelUp={() => setIsLevelingUp(true)}
+        />
+      </div>
       <div className="play__avatar">
         <Body stage={stage} modSelections={modSelections} />
       </div>
-      {playContent}
+      {rightContent}
       {targetAnimal && playerState !== -1 && (
         <div className="play__instructions">
           Help me find the{" "}

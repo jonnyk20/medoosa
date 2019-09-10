@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   name: "Medoosa",
-  stage: 2,
+  stage: 0,
   modSelections: [
     {
       name: "color",

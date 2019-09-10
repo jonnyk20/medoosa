@@ -17,6 +17,10 @@
     }
   }
 
+  &__progress {
+    grid-column: 1 / -1;
+  }
+
   &__avatar {
     display: flex;
     justify-content: flex-end;

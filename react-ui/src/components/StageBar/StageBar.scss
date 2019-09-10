@@ -1,0 +1,40 @@
+.stage-bar {
+  display: table;
+  height: 30px;
+  width: 100%;
+  // TODO: Add Max Width
+  position: relative;
+
+  &__bar {
+    height: 100%;
+    width: 80%;
+    margin: auto;
+
+    .progress-bar {
+      border-radius: 30px;
+    }
+
+  }
+
+  &__icons {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+
+    .stage-icon {
+      height: 40px;
+      width: 40px;
+      background: white;
+      color: skyblue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
+  }
+}
