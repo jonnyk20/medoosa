@@ -1,24 +1,17 @@
-import React, { useState } from "react"
-import { MdDone, MdExpandMore } from "react-icons/md"
-import Carousel from "../Carousel/Carousel"
-import Button from "../Button/Button"
-import Body from "../Body"
+import React, { useState } from "react";
+import { MdDone, MdExpandMore } from "react-icons/md";
+import Carousel from "../Carousel/Carousel";
+import Button from "../Button/Button";
+import Body from "../Body";
 
-import "./Customize.scss"
+import "./Customize.scss";
 
 // npm install react-icons --save
 
-const Customize = ({
-  items,
-  onConfirm,
-  modSelections,
-  stage,
-  isModalOpen,
-  goHome,
-}) => {
-  const [selectedItem, setSelectedItem] = useState(0)
-  const handeClick = () => onConfirm(selectedItem)
-  console.log("ITEKs", modSelections)
+const Customize = ({ items, onConfirm, modSelections, stage }) => {
+  const [selectedItem, setSelectedItem] = useState(0);
+  const handeClick = () => onConfirm(selectedItem);
+
   return (
     <div className="customize">
       <div className="customize__avatar">
@@ -40,7 +33,7 @@ const Customize = ({
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Customize
+export default Customize;

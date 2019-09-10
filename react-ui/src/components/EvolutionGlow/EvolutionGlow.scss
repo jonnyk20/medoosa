@@ -1,6 +1,6 @@
 .evolution-glow {
-  height: 150px;
-  width: 150px;
+  height: 300px;
+  width: 300px;
   position: absolute;
   display: flex;
   align-items: center;
@@ -9,6 +9,10 @@
   opacity: 0;
   animation: fade 3s, pulse 1s infinite;
   border-radius: 50%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  margin-top: 10px;
 }
 
 @keyframes fade {

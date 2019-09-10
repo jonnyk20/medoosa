@@ -9,7 +9,7 @@ import {
 } from "redux";
 import Share from "./containers/Share/Share";
 import Play from "./containers/Play/Play";
-import Home from "./Home";
+import Start from "./containers/Start/Start";
 import scatterDots from "./utils/scatterDots";
 import "./App.scss";
 import rootReducer from "./redux/reducers";
@@ -31,7 +31,7 @@ function App() {
     <Router>
       <Provider store={createStore()}>
         <div className="App">
-          <Route path="/" exact component={Play} />
+          <Route path="/" exact component={Start} />
           <Route path="/play" exact component={Play} />
           <Route path="/share" exact component={Share} />
         </div>

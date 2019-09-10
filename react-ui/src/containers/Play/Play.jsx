@@ -44,9 +44,9 @@ const PlayContainer = () => {
     const animalsToIgnore = [...Array.from(foundAnimals), hitTargetIndex];
     const availableAnimals = getFilteredTargetList(animalsToIgnore);
     const nextAnimal = getRandomItem(availableAnimals);
-    if (stage < 5) {
-      dispatch(advanceStageAction());
-    }
+    // if (stage < 5) {
+    //   dispatch(advanceStageAction());
+    // }
     if (stage < 4) {
       dispatch(setTargetAction(nextAnimal));
     }

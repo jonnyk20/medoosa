@@ -1,24 +1,29 @@
-import React, { useState } from "react"
-import Slider from "react-slick"
-import "./Carousel.scss"
+import React, { useState } from "react";
+import Slider from "react-slick";
+import "./Carousel.scss";
 
 const settings = {
   centerMode: true,
   infinite: true,
   speed: 500,
-  slidesToShow: 3,
   className: "carousel",
   swipeToSlide: true,
   focusOnSelect: true,
   arrows: false,
-  centerPadding: "60px",
-}
+  centerPadding: "60px"
+};
 
-const Carousel = ({ items, afterChange, initialSlide = 0 }) => (
+const Carousel = ({
+  items,
+  afterChange,
+  initialSlide = 0,
+  itemsToShow = 3
+}) => (
   <div>
     <div className="carousel-container">
       <Slider
         {...settings}
+        slidesToShow={itemsToShow}
         initialSlide={initialSlide}
         afterChange={afterChange}
       >
@@ -32,6 +37,6 @@ const Carousel = ({ items, afterChange, initialSlide = 0 }) => (
       </Slider>
     </div>
   </div>
-)
+);
 
-export default Carousel
+export default Carousel;

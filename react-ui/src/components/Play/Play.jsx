@@ -1,16 +1,23 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, Fragment } from "react";
 import YouTube from "react-youtube";
 import "./Play.scss";
 import Box from "../Box/Box";
 import Body from "../Body";
+import Customize from "../../containers/Customize/Customize";
 import { Link } from "react-router-dom";
+import Modal from "react-modal";
 import Button from "../Button/Button";
 import Spot from "../Spot/Spot";
 import EvolutionGlow from "../EvolutionGlow/EvolutionGlow";
 import SpottingConfirmation from "../SpottingConfirmation/SpottingConfirmation";
 import { getVideoDimensions } from "../../utils";
+import LevelUp from "../../containers/LevelUp/LevelUp";
 
 const videoId = "4a2cSvTph0M";
+
+const modalStyles = {
+  content: {}
+};
 
 const argMax = array =>
   [].map
@@ -66,6 +73,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const [isEvolving, setIsEvolving] = useState(false);
   const [playerState, setPlayerState] = useState(-1);
   const [isConfirming, setIsConfirming] = useState(false);
+  const [isLevelingUp, setIsLevelingUp] = useState(false);
   // -1 – unstarted
   // 0 – ended
   // 1 – playing
@@ -163,6 +171,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
         if (!isEvolving) {
           setTimeout(() => {
             onHitTarget(hitTarget.labelIndex);
+            setIsLevelingUp(true);
           }, 1500);
         }
         setIsEvolving(true);
@@ -263,7 +272,6 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
       </div>
       <div className="play__avatar">
         <Body stage={stage} modSelections={modSelections} />
-        {isEvolving && <EvolutionGlow />}
       </div>
       {playContent}
       {targetAnimal && playerState !== -1 && (
@@ -272,6 +280,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
           <span className="brand-text">{targetAnimal.name}</span>
         </div>
       )}
+      {isLevelingUp && <LevelUp onFinish={() => setIsLevelingUp(false)} />}
     </div>
   );
 };

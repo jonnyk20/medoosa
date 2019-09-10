@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export const colors = [
   "#FFFFFF",
@@ -7,14 +7,13 @@ export const colors = [
   "#f09aff",
   "#ffa0a0",
   "#fff6a5",
-  "#ffd863",
-]
+  "#ffd863"
+];
 
-const addColor = color => () => {
-  console.log("COLOR", color)
-  return <div className="color" style={{ backgroundColor: color }}></div>
-}
+const addColor = color => () => (
+  <div className="color" style={{ backgroundColor: color }}></div>
+);
 
-const colorComponents = colors.map(addColor)
+const colorComponents = colors.map(addColor);
 
-export default colorComponents
+export default colorComponents;
