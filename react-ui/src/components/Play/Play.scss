@@ -100,4 +100,10 @@
       color: skyblue;
     }
   }
+
+  &__evolution-prompt {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }

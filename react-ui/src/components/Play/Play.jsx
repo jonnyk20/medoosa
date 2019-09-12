@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import YouTube from "react-youtube";
+import { MdArrowUpward } from "react-icons/md";
 import "./Play.scss";
 import Box from "../Box/Box";
 import Body from "../Body";
@@ -68,6 +69,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const [isConfirming, setIsConfirming] = useState(false);
   const [levelUpPending, setLevelUpPending] = useState(false);
   const [isLevelingUp, setIsLevelingUp] = useState(false);
+  const [isClickDisabled, setIsClickDisabled] = useState(false);
   // -1 – unstarted
   // 0 – ended
   // 1 – playing
@@ -105,7 +107,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
 
   const handleClick = e => {
     const { clientX, clientY } = e;
-    if (isConfirming || levelUpPending || !!spot) {
+    if (isConfirming || levelUpPending || !!spot || isClickDisabled) {
       return;
     }
     const time = video.getCurrentTime();
@@ -159,18 +161,20 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
       if (!!hitTarget) {
         spotType = "correct";
         setIsConfirming(true);
+        setIsClickDisabled(true);
         setTimeout(() => {
           setIsConfirming(false);
-        }, 3000);
+          setIsClickDisabled(false);
+        }, 1500);
         if (!isConfirming) {
           setTimeout(() => {
             onHitTarget(hitTarget.labelIndex);
             // setIsLevelingUp(true);
-          }, 3000);
+          }, 1500);
         }
         setTimeout(() => {
           setLevelUpPending(true);
-        }, 3000);
+        }, 1500);
       }
       setTargetBoxes(boxesToRender);
       setTimeout(() => {
@@ -201,7 +205,15 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
       }
     }
   };
-  console.log("playerState", playerState);
+
+  const onFinish = () => {
+    setIsLevelingUp(false);
+  };
+
+  const onStartLevelUp = () => {
+    setIsLevelingUp(true);
+    setLevelUpPending(false);
+  };
 
   const targetContent = (
     <div className="play__target">
@@ -229,7 +241,16 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   );
 
   const levelUpPrompt = (
-    <div>Great Job, now click on the next stage to level up</div>
+    <div className="play__evolution-prompt">
+      <div>
+        <div>
+          <MdArrowUpward />
+        </div>
+        Great Job, <br />
+        You can now evolve by <br />
+        clicking on the next stage
+      </div>
+    </div>
   );
 
   let rightContent = introContent;
@@ -280,20 +301,21 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
         <StageBar
           stage={stage}
           levelUpPending={levelUpPending}
-          onStartLevelUp={() => setIsLevelingUp(true)}
+          onStartLevelUp={onStartLevelUp}
+          isLevelingUp={isLevelingUp}
         />
       </div>
       <div className="play__avatar">
-        <Body stage={stage} modSelections={modSelections} />
+        {!isLevelingUp && <Body stage={stage} modSelections={modSelections} />}
       </div>
       {rightContent}
-      {targetAnimal && playerState !== -1 && (
+      {targetAnimal && playerState !== -1 && !isLevelingUp && !levelUpPending && (
         <div className="play__instructions">
           Help me find the{" "}
           <span className="brand-text">{targetAnimal.name}</span>
         </div>
       )}
-      {isLevelingUp && <LevelUp onFinish={() => setIsLevelingUp(false)} />}
+      {isLevelingUp && <LevelUp onFinish={onFinish} />}
     </div>
   );
 };
