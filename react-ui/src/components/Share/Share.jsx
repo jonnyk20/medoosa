@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { getRandomModSelections } from "../../utils";
-import Body from "../Body";
-import fakeNames from "../../data/fakeNames";
-import "./Share.scss";
 import Input from "@material-ui/core/TextField";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
+import Body from "../Body";
+import medoosaService from "../../medoosaService";
+import "./Share.scss";
+
+// process.env.NODE_ENV
+
+const order = ["color", "eyes", "mouth", "arms", "head"];
+
+const formatMods = medoosas => {
+  console.log("MEDOOSAS", medoosas);
+  return medoosas.map(medoosa => ({
+    name: medoosa.name,
+    mods: order.map(name => ({ name, value: medoosa[name] }))
+  }));
+};
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -61,13 +72,13 @@ const settings = {
   draggable: false,
   touchMove: false,
   swipe: false,
-  rows: 2,
+  // rows: 2,
   pauseOnHover: false,
   adaptiveHeight: true
 };
 
-const getItems = selections =>
-  selections.map((selection, i) => (
+const getItems = medoosas =>
+  medoosas.map((medoosa, i) => (
     <div
       key={`item-${i}`}
       style={{
@@ -76,25 +87,32 @@ const getItems = selections =>
       className="community-avatar"
     >
       <div style={{ height: "150px" }}>
-        <Body stage={5} modSelections={selection} />
-        <div className="community-avatar__name">{fakeNames[i]}</div>
+        <Body stage={5} modSelections={medoosa.mods} />
+        <div className="community-avatar__name">{medoosa.name}</div>
       </div>
     </div>
   ));
 
 const Share = ({ stage, modSelections, reset }) => {
-  const [modSelectionsArray, setModSelectionsArray] = useState([]);
   const [name, setName] = useState("");
+  const [medoosas, setMedoosas] = useState(null);
+
+  const getMedoosas = async () => {
+    const fetchedMedoodas = await medoosaService.getMedoosas();
+    const fotmattedSelections = formatMods(fetchedMedoodas);
+    setMedoosas(fotmattedSelections);
+  };
+
   useEffect(() => {
-    const selections = getRandomModSelections(20);
-    setModSelectionsArray(selections);
+    getMedoosas();
   }, []);
 
   const classes = useStyles();
 
   const onChange = e => setName(e.target.value);
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
+    await medoosaService.submitMedoosa(name, modSelections);
     reset();
   };
 
@@ -102,9 +120,11 @@ const Share = ({ stage, modSelections, reset }) => {
     <ThemeProvider theme={theme}>
       <div className="share">
         <div className="share__community">
-          <Slider {...settings} slidesToShow={isMobile() ? 2 : 5}>
-            {getItems(modSelectionsArray)}
-          </Slider>
+          {!!medoosas && (
+            <Slider {...settings} slidesToShow={isMobile() ? 1 : 3}>
+              {getItems(medoosas)}
+            </Slider>
+          )}
         </div>
         <div className="share__avatar">
           <Body stage={stage} modSelections={modSelections} />
@@ -114,11 +134,11 @@ const Share = ({ stage, modSelections, reset }) => {
             <Input
               className={classes.input}
               defaultValue={name}
-              className="input-class"
               placeholder="Your Name"
               inputProps={{
                 "aria-label": "description",
-                color: "white"
+                color: "white",
+                maxLength: 15
               }}
               onChange={onChange}
             />

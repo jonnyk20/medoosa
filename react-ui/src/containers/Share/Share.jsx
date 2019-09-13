@@ -18,7 +18,7 @@ const Share = () => {
     setIsFinished(true);
   };
 
-  return isFinished ? (
+  return isFinished || stage < 5 ? (
     <Redirect to="/" />
   ) : (
     <ShareComponent stage={stage} modSelections={modSelections} reset={reset} />

@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const Medoosa = mongoose.model("Medoosa");
-const loadfakeMedoosas = require('./migration/loadFakeMedoosas')
+const loadfakeMedoosas = require("./migration/loadFakeMedoosas");
 
 exports.list_all_medoosas = function(req, res) {
   Medoosa.find({}, function(err, medoosas) {
     if (err) res.send(err);
-    res.json(medoosas);
+    res.json(medoosas.slice(-20));
   });
 };
 
@@ -49,6 +49,6 @@ exports.delete_medoosa = function(req, res) {
 };
 
 exports.load_fake_medoosas = async (req, res) => {
-  await loadfakeMedoosas(20)
+  await loadfakeMedoosas(20);
   res.json({ message: "Did it" });
 };
