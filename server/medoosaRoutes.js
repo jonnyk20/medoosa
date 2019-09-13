@@ -4,10 +4,11 @@ module.exports = function(app) {
   app
     .route("/medoosas")
     .get(medoosas.list_all_medoosas)
-    .post(medoosas.create_medoosa);
+    .post(medoosas.create_medoosa)
+    .put(medoosas.load_fake_medoosas)
 
   app
-    .route("/medoosas/:medoosaIndex")
+    .route("/medoosas/:medoosaId")
     .get(medoosas.read_medoosa)
     .put(medoosas.update_medoosa)
     .delete(medoosas.delete_medoosa);
