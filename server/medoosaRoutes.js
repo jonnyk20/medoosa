@@ -5,7 +5,7 @@ module.exports = function(app) {
     .route("/medoosas")
     .get(medoosas.list_all_medoosas)
     .post(medoosas.create_medoosa)
-    .put(medoosas.load_fake_medoosas)
+    // .put(medoosas.load_fake_medoosas)
 
   app
     .route("/medoosas/:medoosaId")
