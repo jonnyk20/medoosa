@@ -1,11 +1,7 @@
-require("dotenv").config();
 const mongoose = require("mongoose");
-require("../server/medoosaModel");
-const Medoosa = mongoose.model("Medoosa");
+const Medoosa = mongoose.model("Medoosa")
 
 const fakeNames = require("./fakeNames");
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 const modCounts = {
   color: 7,
@@ -41,10 +37,10 @@ const saveMedoosa = async data => {
   console.log("saved one");
 };
 
-const saveMedoosas = async num => {
+const loadfakeMedoosas = async num => {
   const dataArray = getRandomMedoosas(num);
   await Promise.all(dataArray.map(saveMedoosa));
   console.log("SAVED ALL");
 };
 
-saveMedoosas(20);
+module.exports = loadfakeMedoosas;

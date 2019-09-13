@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Medoosa = mongoose.model("Medoosa");
+const loadfakeMedoosas = require('./migration/loadFakeMedoosas')
 
 exports.list_all_medoosas = function(req, res) {
   Medoosa.find({}, function(err, medoosas) {
@@ -45,4 +46,9 @@ exports.delete_medoosa = function(req, res) {
       res.json({ message: "Medoosa successfully deleted" });
     }
   );
+};
+
+exports.load_fake_medoosas = async (req, res) => {
+  await loadfakeMedoosas(20)
+  res.json({ message: "Did it" });
 };
