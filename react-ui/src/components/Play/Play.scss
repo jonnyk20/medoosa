@@ -127,5 +127,9 @@
     justify-content: center;
     min-height: 250px;
     position: relative;
+
+    &--finished {
+      grid-column: 1 / -1;
+    }
   }
 }

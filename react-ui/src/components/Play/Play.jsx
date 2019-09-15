@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect, Fragment } from "react";
 import YouTube from "react-youtube";
 import { MdArrowUpward, MdArrowDownward } from "react-icons/md";
+import { Link } from "react-router-dom";
 import "./Play.scss";
 import Box from "../Box/Box";
 import Body from "../Body";
-import { Link } from "react-router-dom";
 import LevelUp from "../../containers/LevelUp/LevelUp";
 import { getVideoDimensions, disintegrade } from "../../utils";
-import Button from "../Button/Button";
 import Spot from "../Spot/Spot";
+import Button from "../Button/Button";
 import StageBar from "../StageBar/StageBar";
 import Target from "../Target/Target";
 import SpottingConfirmation from "../SpottingConfirmation/SpottingConfirmation";
@@ -53,11 +53,18 @@ const isBeingClicked = (bounds, box, clickTarget) => {
 };
 
 const introContent = (
-  <div className="play__intro">
-    <div className="text-box">
-      <p className="brand-text">Help me find my friends.</p>
-      <p>Start the video and then tap or click the fish to spot them.</p>
-    </div>
+  <div className="text-box">
+    <p className="brand-text">Help me find my friends.</p>
+    <p>Start the video and then tap or click the fish to spot them.</p>
+  </div>
+);
+
+const finishContent = (
+  <div className="text-box">
+    <p className="brand-text">All Done!</p>
+    <Link to="/share">
+      <Button>Finish</Button>
+    </Link>
   </div>
 );
 
@@ -70,7 +77,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const [isConfirming, setIsConfirming] = useState(false);
   const [isLevelUpPending, setLevelUpPending] = useState(false);
   const [isLevelingUp, setIsLevelingUp] = useState(false);
-  const [isClickDisabled, setIsClickDisabled] = useState(false);
+  const [hitTargetIndex, setHitTargetIndex] = useState(null);
   // -1 – unstarted
   // 0 – ended
   // 1 – playing
@@ -110,7 +117,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
 
   const handleClick = e => {
     const { clientX, clientY } = e;
-    if (isConfirming || isLevelUpPending || !!spot || isClickDisabled) {
+    if (isConfirming || isLevelUpPending || !!spot) {
       return;
     }
     const time = video.getCurrentTime();
@@ -164,17 +171,8 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
       if (!!hitTarget) {
         spotType = "correct";
         setIsConfirming(true);
-        setIsClickDisabled(true);
-        setTimeout(() => {
-          setIsClickDisabled(false);
-          // setIsConfirming(false);
-        }, 1500);
-        if (!isConfirming) {
-          setTimeout(() => {
-            onHitTarget(hitTarget.labelIndex);
-            // setIsLevelingUp(true);
-          }, 1500);
-        }
+        setTimeout(() => {}, 1500);
+        setHitTargetIndex(hitTarget.labelIndex);
         thanos();
       }
       setTargetBoxes(boxesToRender);
@@ -215,23 +213,9 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const onStartLevelUp = () => {
     setIsLevelingUp(true);
     setLevelUpPending(false);
+    onHitTarget(hitTargetIndex);
+    setHitTargetIndex(null);
   };
-
-  // const targetContent = (
-  //   <div className="play__target">
-  //     {targetAnimal && !isLevelUpPending && (
-  //       <div className="play__target-image">
-  //         <img
-  //           src={`https://jk-fish-test.s3.us-east-2.amazonaws.com/medoosa-stock/${targetAnimal.name.replace(
-  //             " ",
-  //             "-"
-  //           )}.jpg`}
-  //         />
-  //         {isConfirming && <SpottingConfirmation />}
-  //       </div>
-  //     )}
-  //   </div>
-  // );
 
   const targetContent = (
     <Fragment>
@@ -241,7 +225,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
         <div>You got it</div>
       ) : (
         <Fragment>
-          <div>Target: {targetAnimal.name}</div>
+          <div>Target: {targetAnimal ? targetAnimal.name : "None"}</div>
           <div>Find and tap me in the video above</div>
         </Fragment>
       )}
@@ -263,6 +247,9 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   switch (true) {
     case isLevelUpPending:
       mainContent = levelUpPrompt;
+      break;
+    case stage >= 5 && !isLevelingUp:
+      mainContent = finishContent;
       break;
     case stage >= 5:
       mainContent = null;
@@ -323,7 +310,13 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
           <MdArrowUpward />
         )}
       </div>
-      <div className="play__main-content">{mainContent}</div>
+      <div
+        className={`play__main-content ${
+          stage >= 5 ? "play__main-content--finished" : ""
+        }`}
+      >
+        {mainContent}
+      </div>
       <div className="play__avatar">
         {!isLevelingUp && (
           <Body
