@@ -13,28 +13,29 @@ const LevelUp = ({ items, onFinish, onSetMod, modSelections, stage }) => {
   const [isEvolved, setIsEvolved] = useState(false);
   const [isEvolving, setIsEvolving] = useState(false);
   const glowRef = useRef();
-  const handleClick = () => {
-    if (isEvolved) {
-      onFinish();
-      return;
+
+  const evolve = () => {
+    if (!isEvolving) {
+      setIsEvolving(true);
+      setTimeout(() => {
+        onSetMod(selectedItem);
+        explode(glowRef.current);
+      }, 1500);
+      setTimeout(() => {
+        setIsEvolved(true);
+      }, 2000);
     }
-    if (isEvolving) {
-      return;
-    }
-    setIsEvolving(true);
-    setTimeout(() => {
-      onSetMod(selectedItem);
-      explode(glowRef.current);
-    }, 1500);
-    setTimeout(() => {
-      setIsEvolved(true);
-    }, 3000);
   };
 
   return (
     <div className="level-up">
       <div className="level-up__avatar">
-        <Body stage={stage} modSelections={modSelections} />
+        <Body
+          stage={stage}
+          modSelections={modSelections}
+          onClick={stage < 5 ? evolve : () => {}}
+          isLevelUpPending={!isEvolved}
+        />
         {isEvolving && <EvolutionGlow ref={glowRef} />}
       </div>
       {!isEvolving && !isEvolved && (
@@ -52,9 +53,16 @@ const LevelUp = ({ items, onFinish, onSetMod, modSelections, stage }) => {
         </div>
       )}
       <div className="level-up__confirmation">
-        {stage < 5 && (
-          <Button onClick={handleClick}>
-            {isEvolved ? <MdArrowBack /> : <MdDone />}
+        {!isEvolved && !isEvolving && (
+          <div>
+            Choose your{" "}
+            {modSelections[stage] ? modSelections[stage].name : "mod"}, them tap
+            on your meoodosa to evolve
+          </div>
+        )}
+        {isEvolved && stage < 5 && (
+          <Button onClick={onFinish}>
+            <MdDone />
           </Button>
         )}
 
