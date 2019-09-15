@@ -1,5 +1,6 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { colors } from "../Mods/colors";
+import Aura from "../Aura/Aura";
 import Egg from "./Egg/Egg";
 import Planula from "./Planula/Planula";
 import Polyp from "./Polyp/Polyp";
@@ -10,15 +11,23 @@ import "./Body.scss";
 
 const bodies = [Egg, Planula, Polyp, Ephyra, Medusa, FinalForm];
 
-const BodyComponent = ({ stage = 0, modSelections }) => {
-  const Body = bodies[stage];
-  const color = colors[modSelections[0].value];
+const BodyComponent = forwardRef(
+  ({ stage = 0, modSelections, isLevelUpPending, onClick = () => {} }, ref) => {
+    const Body = bodies[stage];
+    const color = colors[modSelections[0].value];
+    const aura = isLevelUpPending ? <Aura /> : null;
 
-  return (
-    <div className="body" style={{ color }}>
-      <Body modSelections={modSelections} />
-    </div>
-  );
-};
+    return (
+      <div
+        className={`body ${isLevelUpPending ? "body--clickable" : ""}`}
+        style={{ color }}
+        ref={ref}
+        onClick={onClick}
+      >
+        <Body modSelections={modSelections} aura={aura} />
+      </div>
+    );
+  }
+);
 
 export default BodyComponent;

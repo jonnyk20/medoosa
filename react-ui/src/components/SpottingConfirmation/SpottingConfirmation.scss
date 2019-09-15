@@ -10,6 +10,9 @@
   align-items: center;
   opacity: 0;
   animation: fade 1s;
+  left: 0;
+  right: 0;
+  margin: auto;
 
   &__circle {
     background: green;

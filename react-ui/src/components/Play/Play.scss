@@ -1,12 +1,14 @@
 .play {
   text-align: center;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  margin: auto;
 
   &__video {
     position: relative;
     margin: auto;
     grid-column: 1 / -1;
+    margin-bottom: 50px;
 
     .overlay {
       position: absolute;
@@ -21,6 +23,14 @@
     grid-column: 1 / -1;
   }
 
+  &__hint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: skyblue;
+    font-size: 36px;
+  }
+
   &__avatar {
     display: flex;
     justify-content: flex-end;
@@ -28,6 +38,10 @@
     padding: 10px;
     min-height: 200px;
     padding-right: 20px;
+    grid-column: 1 / 2;
+
+    // justify-content: flex-start;
+    // height: 800px;
   }
 
   &__target {
@@ -105,5 +119,13 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+  }
+
+  &__main-content {
+    grid-column: 2 / -1;
+    display: grid;
+    justify-content: center;
+    min-height: 250px;
+    position: relative;
   }
 }

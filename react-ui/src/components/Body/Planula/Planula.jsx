@@ -1,9 +1,10 @@
-import React from "react"
+import React from "react";
 
-import "./Planula.scss"
+import "./Planula.scss";
 
-const Planula = () => (
+const Planula = ({ aura }) => (
   <div className="planula">
+    {aura}
     <svg
       id="Layer_1"
       data-name="Layer 1"
@@ -61,6 +62,6 @@ const Planula = () => (
       <path d="M503.06,360c17.66,0,34.24,13.19,46.69,37.15,14.31,27.56,21.88,66,21.88,111.15,0,43.87-7.45,79.23-21.54,102.24C538.29,629.81,522,640,503.06,640s-35.23-10.19-47-29.46c-14.09-23-21.54-58.37-21.54-102.24,0-45.15,7.57-83.59,21.89-111.15,12.44-24,29-37.15,46.68-37.15m0-10c-43.39,0-78.57,60.67-78.57,158.3S459.67,650,503.06,650s78.57-44.06,78.57-141.7S546.46,350,503.06,350Z" />
     </svg>
   </div>
-)
+);
 
-export default Planula
+export default Planula;

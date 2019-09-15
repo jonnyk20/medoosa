@@ -1,13 +1,14 @@
-import React from "react"
-import { eyes, mouth } from "../../Mods"
-import "./Ephyra.scss"
+import React from "react";
+import { eyes, mouth } from "../../Mods";
+import "./Ephyra.scss";
 
-const Ephyra = ({ modSelections }) => {
-  const Eyes = eyes[modSelections[1].value]
-  const Mouth = mouth[modSelections[2].value]
+const Ephyra = ({ modSelections, aura }) => {
+  const Eyes = eyes[modSelections[1].value];
+  const Mouth = mouth[modSelections[2].value];
 
   return (
     <div className="ephyra">
+      {aura}
       <svg
         id="Layer_1"
         data-name="Layer 1"
@@ -28,7 +29,7 @@ const Ephyra = ({ modSelections }) => {
         <Mouth />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Ephyra
+export default Ephyra;
