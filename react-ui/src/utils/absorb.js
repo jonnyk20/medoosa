@@ -1,6 +1,6 @@
 import html2canvas from "html2canvas";
 
-const disingegrade = async (target, origin) => {
+const absorb = async (target, origin) => {
   let ctx;
 
   const { clientHeight, clientWidth } = target;
@@ -209,4 +209,4 @@ const disingegrade = async (target, origin) => {
   window.requestAnimationFrame(update);
 };
 
-export default disingegrade;
+export default absorb;

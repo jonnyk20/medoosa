@@ -6,7 +6,7 @@ import "./Play.scss";
 import Box from "../Box/Box";
 import Body from "../Body";
 import LevelUp from "../../containers/LevelUp/LevelUp";
-import { getVideoDimensions, disintegrade } from "../../utils";
+import { getVideoDimensions, absorb } from "../../utils";
 import Spot from "../Spot/Spot";
 import Button from "../Button/Button";
 import StageBar from "../StageBar/StageBar";
@@ -269,7 +269,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
     const { left, right, top, bottom } = body.getBoundingClientRect();
     const x = left + (right - left) / 2;
     const y = top + (bottom - top) / 2;
-    disintegrade(targetRef.current, { x, y });
+    absorb(targetRef.current, { x, y });
     setTimeout(() => {
       setLevelUpPending(true);
     }, 3000);

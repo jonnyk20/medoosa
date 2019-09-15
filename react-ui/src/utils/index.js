@@ -4,4 +4,5 @@ export { default as disablePageDrag } from "./disablePageDrag";
 export { default as getRandomItem } from "./getRandomItem";
 export { default as getVideoDimensions } from "./getVideoDimensions";
 export { default as getRandomModSelections } from "./getRandomModSelections";
-export { default as disintegrade } from "./disintegrade";
+export { default as absorb } from "./absorb";
+export { default as explode } from "./explode";

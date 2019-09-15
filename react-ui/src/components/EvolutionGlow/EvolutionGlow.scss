@@ -6,8 +6,8 @@
   align-items: center;
   justify-content: center;
   background: skyblue;
-  opacity: 0;
-  animation: fade 3s, pulse 1s infinite;
+  opacity: 1;
+  animation: fadeIn ease 1s, pulse 1s infinite;
   border-radius: 50%;
   left: 0;
   right: 0;
@@ -15,21 +15,13 @@
   margin-top: 10px;
 }
 
-@keyframes fade {
+@keyframes fadeIn {
   0% {
     opacity: 0;
   }
 
-  30% {
-    opacity: 1;
-  }
-
-  70% {
-    opacity: 1;
-  }
-
   100% {
-    opacity: 0;
+    opacity: 1;
   }
 }
 
