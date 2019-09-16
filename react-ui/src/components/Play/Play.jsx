@@ -15,6 +15,14 @@ import SpottingConfirmation from "../SpottingConfirmation/SpottingConfirmation";
 
 const videoId = "4a2cSvTph0M";
 
+const particleCanvasStyle = {
+  position: "absolute",
+  top: "0",
+  left: "0",
+  zIndex: "1001",
+  pointerEvents: "none"
+};
+
 const argMax = array =>
   [].map
     .call(array, (x, i) => [x, i])
@@ -78,6 +86,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const [isLevelUpPending, setLevelUpPending] = useState(false);
   const [isLevelingUp, setIsLevelingUp] = useState(false);
   const [hitTargetIndex, setHitTargetIndex] = useState(null);
+  const [windowDimensions, setWindowDimensions] = useState(null);
   // -1 – unstarted
   // 0 – ended
   // 1 – playing
@@ -88,10 +97,13 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const componentIsMounted = useRef(true);
   const bodyRef = useRef();
   const targetRef = useRef();
+  const particleCanvasRef = useRef();
 
   useEffect(() => {
-    const dimensions = getVideoDimensions(window.innerWidth);
+    const { innerWidth: width, innerHeight: height } = window;
+    const dimensions = getVideoDimensions(width);
     setVideoDimensions(dimensions);
+    setWindowDimensions({ width, height });
   }, []);
 
   const { width: videoWidth, height: videoHeight } = videoDimensions;
@@ -269,7 +281,8 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
     const { left, right, top, bottom } = body.getBoundingClientRect();
     const x = left + (right - left) / 2;
     const y = top + (bottom - top) / 2;
-    absorb(targetRef.current, { x, y });
+    console.log("particleCanvasRef", particleCanvasRef);
+    absorb(targetRef.current, { x, y }, particleCanvasRef.current);
     setTimeout(() => {
       setLevelUpPending(true);
     }, 3000);
@@ -303,7 +316,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
           />
         )}
       </div>
-      <div className="play__hint">
+      <div className="play__hint" onClick={thanos}>
         {stage === 5 || isLevelingUp ? null : isLevelUpPending ? (
           <MdArrowDownward />
         ) : (
@@ -344,6 +357,14 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
           isLevelingUp={isLevelingUp}
         />
       </div>
+      {windowDimensions && (
+        <canvas
+          style={particleCanvasStyle}
+          width={windowDimensions.width}
+          height={windowDimensions.height}
+          ref={particleCanvasRef}
+        />
+      )}
       {isLevelingUp && <LevelUp onFinish={onFinish} />}
     </div>
   );
