@@ -4,9 +4,9 @@ import { setModAction, advanceStageAction } from "../../redux/actions";
 import LevelUpComponent from "../../components/LevelUp/LevelUp";
 import mods from "../../components/Mods";
 
-const LevelUp = ({ onFinish }) => {
+const LevelUp = ({ onFinish, particleCanvasRef }) => {
   const { stage, modSelections } = useSelector(state => state.medoosa);
-  // const onEvolve = () => dispatch(advanceStageAction());
+
   const onSetMod = itemIndex => {
     dispatch(
       setModAction({
@@ -26,6 +26,7 @@ const LevelUp = ({ onFinish }) => {
       modSelections={modSelections}
       stage={stage}
       onFinish={onFinish}
+      particleCanvasRef={particleCanvasRef}
     />
   );
 };

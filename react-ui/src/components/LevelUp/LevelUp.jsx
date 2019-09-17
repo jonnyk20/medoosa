@@ -1,25 +1,41 @@
-import React, { useState, useRef } from "react";
-import { MdDone, MdExpandMore, MdArrowBack } from "react-icons/md";
+import React, { useState, useRef, useEffect } from "react";
+import { MdDone, MdExpandLess } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Body from "../Body";
 import Carousel from "../Carousel/Carousel";
 import Button from "../Button/Button";
 import EvolutionGlow from "../EvolutionGlow/EvolutionGlow";
-import { explode } from "../../utils";
+import { makeCanvas, explode } from "../../utils";
 import "./LevelUp.scss";
 
-const LevelUp = ({ items, onFinish, onSetMod, modSelections, stage }) => {
+const LevelUp = ({
+  items,
+  onFinish,
+  onSetMod,
+  modSelections,
+  stage,
+  particleCanvasRef
+}) => {
   const [selectedItem, setSelectedItem] = useState(0);
   const [isEvolved, setIsEvolved] = useState(false);
   const [isEvolving, setIsEvolving] = useState(false);
   const glowRef = useRef();
+
+  useEffect(() => {
+    if (glowRef.current && !isEvolved) {
+      const getCanvas = async () => {
+        const canvas = await makeCanvas(glowRef.current);
+        explode(canvas, glowRef.current, particleCanvasRef.current);
+      };
+      getCanvas();
+    }
+  }, [glowRef.current]);
 
   const evolve = () => {
     if (!isEvolving) {
       setIsEvolving(true);
       setTimeout(() => {
         onSetMod(selectedItem);
-        explode(glowRef.current);
       }, 1500);
       setTimeout(() => {
         setIsEvolved(true);
@@ -36,12 +52,12 @@ const LevelUp = ({ items, onFinish, onSetMod, modSelections, stage }) => {
           onClick={stage < 5 ? evolve : () => {}}
           isLevelUpPending={!isEvolved}
         />
-        {isEvolving && <EvolutionGlow ref={glowRef} />}
+        {(isEvolving || isEvolved) && <EvolutionGlow ref={glowRef} />}
       </div>
       {!isEvolving && !isEvolved && (
         <div className="level-up__selection">
           <div className="icon">
-            <MdExpandMore />
+            <MdExpandLess />
           </div>
 
           <Carousel

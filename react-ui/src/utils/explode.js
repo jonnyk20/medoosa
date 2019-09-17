@@ -1,22 +1,10 @@
-import html2canvas from "html2canvas";
-
-const explode = async target => {
+const explode = async (canvas, target, particleCanvas) => {
   let ctx;
 
   const { clientHeight, clientWidth } = target;
   console.log({ clientHeight, clientWidth, target });
-  const canvas = await html2canvas(target, {
-    backgroundColor: "transparent",
-    height: clientHeight,
-    width: clientWidth,
-    scale: 1
-  });
-  // canvas.height = 182;
-  // canvas.width = 279;
-  // container.appendChild(canvas);
-  ctx = canvas.getContext("2d");
 
-  createParticleCanvas();
+  ctx = canvas.getContext("2d");
 
   let reductionFactor = 17;
   target.style.visibility = "hidden";
@@ -109,34 +97,11 @@ const explode = async target => {
     particle.startY = y;
     particle.startTime = Date.now();
     particle.id = `${x}-${y}`;
-
+    console.log("CREATING PARTICLE");
     particles.push(particle);
   };
 
-  var particleCanvas, particleCtx;
-  function createParticleCanvas() {
-    // Create our canvas
-    particleCanvas = document.createElement("canvas");
-    particleCtx = particleCanvas.getContext("2d");
-
-    // Size our canvas
-    particleCanvas.width = window.innerWidth;
-    particleCanvas.height = window.innerHeight;
-
-    // Position out canvas
-    particleCanvas.style.position = "absolute";
-    particleCanvas.style.top = "0";
-    particleCanvas.style.left = "0";
-
-    // Make sure it's on top of other elements
-    particleCanvas.style.zIndex = "1001";
-
-    // Make sure other elements under it are clickable
-    particleCanvas.style.pointerEvents = "none";
-
-    // Add our canvas to the page
-    document.body.appendChild(particleCanvas);
-  }
+  const particleCtx = particleCanvas.getContext("2d");
 
   const update = () => {
     // Clear out the old particles
@@ -178,14 +143,7 @@ const explode = async target => {
         // if (rgbaColorArr[3] > 0) {
         //   createParticleAtPoint(globalX, globalY, rgbaColorArr);
         // }
-        if (
-          !(
-            rgbaColorArr[0] === 0 &&
-            rgbaColorArr[1] === 0 &&
-            rgbaColorArr[2] === 0 &&
-            rgbaColorArr[3] === 0
-          )
-        ) {
+        if (!(rgbaColorArr[3] === 0)) {
           createParticleAtPoint(globalX, globalY, rgbaColorArr);
         }
       }

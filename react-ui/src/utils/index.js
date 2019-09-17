@@ -6,3 +6,4 @@ export { default as getVideoDimensions } from "./getVideoDimensions";
 export { default as getRandomModSelections } from "./getRandomModSelections";
 export { default as absorb } from "./absorb";
 export { default as explode } from "./explode";
+export { default as makeCanvas } from "./makeCanvas";

@@ -6,7 +6,7 @@ import "./Play.scss";
 import Box from "../Box/Box";
 import Body from "../Body";
 import LevelUp from "../../containers/LevelUp/LevelUp";
-import { getVideoDimensions, absorb } from "../../utils";
+import { getVideoDimensions, absorb, makeCanvas } from "../../utils";
 import Spot from "../Spot/Spot";
 import Button from "../Button/Button";
 import StageBar from "../StageBar/StageBar";
@@ -87,6 +87,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const [isLevelingUp, setIsLevelingUp] = useState(false);
   const [hitTargetIndex, setHitTargetIndex] = useState(null);
   const [windowDimensions, setWindowDimensions] = useState(null);
+  const [animationCanvas, setAnimationCanvas] = useState(null);
   // -1 – unstarted
   // 0 – ended
   // 1 – playing
@@ -98,6 +99,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const bodyRef = useRef();
   const targetRef = useRef();
   const particleCanvasRef = useRef();
+  const targetCanvasRef = useRef();
 
   useEffect(() => {
     const { innerWidth: width, innerHeight: height } = window;
@@ -105,6 +107,16 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
     setVideoDimensions(dimensions);
     setWindowDimensions({ width, height });
   }, []);
+
+  useEffect(() => {
+    if (targetRef.current) {
+      const getCanvas = async () => {
+        const canvas = await makeCanvas(targetRef.current);
+        setAnimationCanvas(canvas);
+      };
+      getCanvas();
+    }
+  }, [targetRef.current]);
 
   const { width: videoWidth, height: videoHeight } = videoDimensions;
 
@@ -129,7 +141,14 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
 
   const handleClick = e => {
     const { clientX, clientY } = e;
-    if (isConfirming || isLevelUpPending || !!spot) {
+    if (
+      isConfirming ||
+      isLevelUpPending ||
+      !!spot ||
+      !targetCanvasRef ||
+      !targetRef ||
+      !animationCanvas
+    ) {
       return;
     }
     const time = video.getCurrentTime();
@@ -206,9 +225,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   };
 
   const onPlayerStateChange = e => {
-    console.log("onPlayerStateChange", onPlayerStateChange);
     if (componentIsMounted.current) {
-      console.log("STILL MOUNTED");
       const state = e.data;
       // TODO: Error state if video not playing properly
       if (state !== -1) {
@@ -282,7 +299,13 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
     const x = left + (right - left) / 2;
     const y = top + (bottom - top) / 2;
     console.log("particleCanvasRef", particleCanvasRef);
-    absorb(targetRef.current, { x, y }, particleCanvasRef.current);
+    absorb(
+      animationCanvas,
+      targetRef.current,
+      { x, y },
+      particleCanvasRef.current,
+      targetCanvasRef.current
+    );
     setTimeout(() => {
       setLevelUpPending(true);
     }, 3000);
@@ -342,21 +365,17 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
         )}
       </div>
 
-      {/* {rightContent}
-      {targetAnimal && playerState !== -1 && !isLevelingUp && !isLevelUpPending && (
-        <div className="play__instructions">
-          Help me find the{" "}
-          <span className="brand-text">{targetAnimal.name}</span>
-        </div>
-      )} */}
-
       <div className="play__progress">
         <StageBar
           stage={stage}
           onStartLevelUp={onStartLevelUp}
           isLevelingUp={isLevelingUp}
+          levelUpPending={isLevelUpPending}
         />
       </div>
+      {isLevelingUp && (
+        <LevelUp onFinish={onFinish} particleCanvasRef={particleCanvasRef} />
+      )}
       {windowDimensions && (
         <canvas
           style={particleCanvasStyle}
@@ -365,7 +384,6 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
           ref={particleCanvasRef}
         />
       )}
-      {isLevelingUp && <LevelUp onFinish={onFinish} />}
     </div>
   );
 };

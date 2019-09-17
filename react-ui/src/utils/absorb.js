@@ -1,16 +1,7 @@
-import html2canvas from "html2canvas";
-
-const absorb = async (target, origin, particleCanvas) => {
+const absorb = async (canvas, target, origin, particleCanvas) => {
   let ctx;
 
-  const { clientHeight, clientWidth } = target;
-  console.log({ clientHeight, clientWidth, target });
-  const canvas = await html2canvas(target, {
-    backgroundColor: "transparent",
-    height: clientHeight,
-    width: clientWidth,
-    scale: 1
-  });
+  console.log("CANVAS");
   // canvas.height = 182;
   // canvas.width = 279;
   // container.appendChild(canvas);

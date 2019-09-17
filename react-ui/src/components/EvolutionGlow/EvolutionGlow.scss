@@ -6,13 +6,13 @@
   align-items: center;
   justify-content: center;
   background: skyblue;
-  opacity: 1;
-  animation: fadeIn ease 1s, pulse 1s infinite;
+  animation: fadeIn 1s ease-in, pulse 1s infinite;
   border-radius: 50%;
   left: 0;
   right: 0;
   margin: auto;
   margin-top: 10px;
+  transition: opacity 1s ease-in-out;
 }
 
 @keyframes fadeIn {
