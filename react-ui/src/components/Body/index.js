@@ -7,6 +7,7 @@ import Polyp from "./Polyp/Polyp";
 import Ephyra from "./Ephyra/Ephyra";
 import Medusa from "./Medusa/Medusa";
 import FinalForm from "./FinalForm/FinalForm";
+import GlowFilter from "./GlowFilter";
 import "./Body.scss";
 
 const bodies = [Egg, Planula, Polyp, Ephyra, Medusa, FinalForm];
@@ -16,6 +17,8 @@ const BodyComponent = forwardRef(
     const Body = bodies[stage];
     const color = colors[modSelections[0].value];
     const aura = isLevelUpPending ? <Aura /> : null;
+    const glowFilter = isLevelUpPending ? <GlowFilter /> : null;
+    const filterProp = glowFilter ? "url(#sofGlow)" : "";
 
     return (
       <div
@@ -24,7 +27,12 @@ const BodyComponent = forwardRef(
         ref={ref}
         onClick={onClick}
       >
-        <Body modSelections={modSelections} aura={aura} />
+        <Body
+          modSelections={modSelections}
+          aura={aura}
+          glowFilter={glowFilter}
+          filterProp={filterProp}
+        />
       </div>
     );
   }

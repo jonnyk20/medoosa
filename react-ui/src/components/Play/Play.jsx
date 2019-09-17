@@ -202,9 +202,8 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
       if (!!hitTarget) {
         spotType = "correct";
         setIsConfirming(true);
-        setTimeout(() => {}, 1500);
+        setTimeout(thanos, 1500);
         setHitTargetIndex(hitTarget.labelIndex);
-        thanos();
       }
       setTargetBoxes(boxesToRender);
       setTimeout(() => {
