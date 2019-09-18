@@ -3,8 +3,8 @@ import fish from "../Fish";
 
 import "./Target.scss";
 
-const Target = forwardRef((props, ref) => {
-  const FishComponent = fish[0];
+const Target = forwardRef(({ target }, ref) => {
+  const FishComponent = fish[target];
 
   return (
     <div className="target-container" ref={ref}>

@@ -88,6 +88,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const [hitTargetIndex, setHitTargetIndex] = useState(null);
   const [windowDimensions, setWindowDimensions] = useState(null);
   const [animationCanvas, setAnimationCanvas] = useState(null);
+  const [targetChanged, setTargetChanged] = useState(false);
   // -1 – unstarted
   // 0 – ended
   // 1 – playing
@@ -118,6 +119,17 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
     }
   }, [targetRef.current]);
 
+  useEffect(() => {
+    if (!isLevelingUp && targetChanged) {
+      const getCanvas = async () => {
+        const canvas = await makeCanvas(targetRef.current);
+        setAnimationCanvas(canvas);
+      };
+      setTargetChanged(false);
+      getCanvas();
+    }
+  }, [isLevelingUp]);
+
   const { width: videoWidth, height: videoHeight } = videoDimensions;
 
   const opts = {
@@ -147,7 +159,8 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
       !!spot ||
       !targetCanvasRef ||
       !targetRef ||
-      !animationCanvas
+      !animationCanvas ||
+      targetChanged
     ) {
       return;
     }
@@ -236,6 +249,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const onFinish = () => {
     setIsLevelingUp(false);
     setIsConfirming(false);
+    setTargetChanged(true);
   };
 
   const onStartLevelUp = () => {
@@ -248,7 +262,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const targetContent = (
     <Fragment>
       {isConfirming && <SpottingConfirmation />}
-      <Target ref={targetRef} />
+      {targetAnimal && <Target ref={targetRef} target={targetAnimal.id} />}
       {isConfirming ? (
         <div>You got it</div>
       ) : (

@@ -52,7 +52,7 @@ const PlayContainer = () => {
 
   useEffect(() => {
     if (!initialized) {
-      const initialTarget = 0;
+      const initialTarget = getRandomItem(getFilteredTargetList());
       const initialModsSelections = modSelections.map((selection, i) => ({
         ...selection,
         value: initialValues[i]
