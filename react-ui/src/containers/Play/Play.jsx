@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PlayComponent from "../../components/Play/Play";
 import formatFrames from "../../utils/formatFrames";
 import video1Frames from "../../data/frames/video1";
-import { addFoundAnimalAction, advanceStageAction } from "../../redux/actions";
+import { addFoundAnimalAction } from "../../redux/actions";
 import getFilteredTargetList from "../../data/getFilteredTargetList";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import {
@@ -44,9 +44,7 @@ const PlayContainer = () => {
     const animalsToIgnore = [...Array.from(foundAnimals), hitTargetIndex];
     const availableAnimals = getFilteredTargetList(animalsToIgnore);
     const nextAnimal = getRandomItem(availableAnimals);
-    // if (stage < 5) {
-    //   dispatch(advanceStageAction());
-    // }
+
     if (stage < 4) {
       dispatch(setTargetAction(nextAnimal));
     }
@@ -54,7 +52,7 @@ const PlayContainer = () => {
 
   useEffect(() => {
     if (!initialized) {
-      const initialTarget = 0; // getRandomItem(getFilteredTargetList());
+      const initialTarget = 0;
       const initialModsSelections = modSelections.map((selection, i) => ({
         ...selection,
         value: initialValues[i]

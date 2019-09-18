@@ -1,6 +1,5 @@
 import React, { forwardRef } from "react";
 import "./EvolutionGlow.scss";
-import { MdAutorenew } from "react-icons/md";
 
 const EvolutionGlow = forwardRef(({ hidden }, ref) => {
   return (

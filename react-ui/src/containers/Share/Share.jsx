@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { resetAction } from "../../redux/actions";
 
 const Share = () => {
-  const { stage, modSelections, initialized } = useSelector(state => ({
+  const { stage, modSelections } = useSelector(state => ({
     stage: state.medoosa.stage,
     modSelections: state.medoosa.modSelections,
     initialized: state.initialized

@@ -1,3 +1,4 @@
+/* eslint-disable  no-useless-escape */ 
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import Input from "@material-ui/core/TextField";

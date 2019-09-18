@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import logger from "redux-logger";
+import { createLogger } from "redux-logger";
 import {
   createStore as reduxCreateStore,
   applyMiddleware,
@@ -13,6 +13,10 @@ import Start from "./containers/Start/Start";
 import scatterDots from "./utils/scatterDots";
 import "./App.scss";
 import rootReducer from "./redux/reducers";
+
+const logger = createLogger({
+  collapsed: true
+})
 
 const composeEnhancer =
   typeof window !== "undefined"
