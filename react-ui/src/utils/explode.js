@@ -1,8 +1,6 @@
 const explode = async (canvas, target, particleCanvas) => {
   let ctx;
 
-  const { clientHeight, clientWidth } = target;
-  console.log({ clientHeight, clientWidth, target });
 
   ctx = canvas.getContext("2d");
 
@@ -12,7 +10,6 @@ const explode = async (canvas, target, particleCanvas) => {
   let width = target.offsetWidth;
   let height = target.offsetHeight;
   let colorData = ctx.getImageData(0, 0, width, height).data;
-  // console.log({ colorData });
 
   // Keep track of how many times we've iterated (in order to reduce
   // the total number of particles create)
@@ -41,9 +38,7 @@ const explode = async (canvas, target, particleCanvas) => {
     // This function will be called by our animation logic later on
     this.draw = ctx => {
       let p = this;
-      // if (this.id === "681.5-561") {
-      //   console.log("ID", this.id);
-      // }
+
       if (this.remainingLife > 0 && this.radius > 0) {
         // Draw a circle at the current location
         ctx.beginPath();
@@ -63,11 +58,7 @@ const explode = async (canvas, target, particleCanvas) => {
           }
           return color + changeRate;
         });
-        // if (this.id === "681.5-561") {
-        //   console.log("orignial", this.color);
-        //   console.log("targetColors", targetColor);
-        //   console.log("modifiedColors", modifiedColors);
-        // }
+
         this.color = modifiedColors;
         const [red, green, blue, alpha] = modifiedColors;
         const color = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
@@ -82,10 +73,7 @@ const explode = async (canvas, target, particleCanvas) => {
         p.radius -= 0.05;
         p.startX += p.speed.x;
         p.startY += p.speed.y;
-      } else {
-        // console.log("REMAINING LIFE", this.remainingLife);
-        // console.log("RADIUS", this.radius);
-      }
+      } 
     };
   };
 
@@ -97,7 +85,6 @@ const explode = async (canvas, target, particleCanvas) => {
     particle.startY = y;
     particle.startTime = Date.now();
     particle.id = `${x}-${y}`;
-    console.log("CREATING PARTICLE");
     particles.push(particle);
   };
 
@@ -134,7 +121,6 @@ const explode = async (canvas, target, particleCanvas) => {
       if (count % reductionFactor === 0) {
         let index = (localY * width + localX) * 4;
         let rgbaColorArr = colorData.slice(index, index + 4);
-        // console.log("rgbaColorArr", rgbaColorArr);
 
         let bcr = target.getBoundingClientRect();
         let globalX = bcr.left + localX;

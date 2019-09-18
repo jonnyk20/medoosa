@@ -19,26 +19,39 @@ const LevelUp = ({
   const [selectedItem, setSelectedItem] = useState(0);
   const [isEvolved, setIsEvolved] = useState(false);
   const [isEvolving, setIsEvolving] = useState(false);
+  const [animationCanvas, setAnimationCanvas] = useState(null);
   const glowRef = useRef();
+  const animationRef = useRef();
+
+  // useEffect(() => {
+  //   if (glowRef.current && !isEvolved) {
+  //     const getCanvas = async () => {
+  //       const canvas = await makeCanvas(glowRef.current);
+  //       explode(canvas, glowRef.current, particleCanvasRef.current);
+  //     };
+  //     getCanvas();
+  //   }
+  // }, [glowRef.current]);
 
   useEffect(() => {
-    if (glowRef.current && !isEvolved) {
+    if (animationRef.current) {
       const getCanvas = async () => {
-        const canvas = await makeCanvas(glowRef.current);
-        explode(canvas, glowRef.current, particleCanvasRef.current);
+        const canvas = await makeCanvas(animationRef.current);
+        setAnimationCanvas(canvas)
       };
       getCanvas();
     }
-  }, [glowRef.current]);
+  }, [animationRef.current])
 
   const evolve = () => {
-    if (!isEvolving) {
+    if (!isEvolving && animationCanvas) {
       setIsEvolving(true);
       setTimeout(() => {
         onSetMod(selectedItem);
       }, 1500);
       setTimeout(() => {
         setIsEvolved(true);
+        explode(animationCanvas, glowRef.current, particleCanvasRef.current)
       }, 2000);
     }
   };
@@ -46,6 +59,7 @@ const LevelUp = ({
   return (
     <div className="level-up">
       <div className="level-up__avatar">
+      <EvolutionGlow ref={animationRef} hidden />
         <Body
           stage={stage}
           modSelections={modSelections}

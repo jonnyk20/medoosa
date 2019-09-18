@@ -14,7 +14,7 @@ const GlowFilter = () => (
     <feGaussianBlur in="thicken" stdDeviation="10" result="blurred" />
 
     {/* <!-- Change the colour --> */}
-    <feFlood flood-color="rgb(0,186,255)" result="glowColor" />
+    <feFlood floodColor="rgb(0,186,255)" result="glowColor" />
 
     {/* <!-- Color in the glows --> */}
     <feComposite

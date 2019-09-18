@@ -297,7 +297,6 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
     const { left, right, top, bottom } = body.getBoundingClientRect();
     const x = left + (right - left) / 2;
     const y = top + (bottom - top) / 2;
-    console.log("particleCanvasRef", particleCanvasRef);
     absorb(
       animationCanvas,
       targetRef.current,
