@@ -62,7 +62,7 @@ const isBeingClicked = (bounds, box, clickTarget) => {
 
 const introContent = (
   <div className="text-box">
-    <p className="brand-text">Help me find my friends.</p>
+    <p className="brand-text">Help me find fish to eat.</p>
     <p>Start the video and then tap or click the fish to spot them.</p>
   </div>
 );
@@ -264,11 +264,11 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
       {isConfirming && <SpottingConfirmation />}
       {targetAnimal && <Target ref={targetRef} target={targetAnimal.id} />}
       {isConfirming ? (
-        <div>You got it</div>
+        <div>You got it!</div>
       ) : (
         <Fragment>
-          <div>Target: {targetAnimal ? targetAnimal.name : "None"}</div>
-          <div>Find and tap me in the video above</div>
+          <div>Next Meal: {targetAnimal ? targetAnimal.name : "None"}</div>
+          <div>Find and and click one in the video</div>
         </Fragment>
       )}
     </Fragment>
@@ -277,9 +277,9 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const levelUpPrompt = (
     <div className="play__evolution-prompt">
       <div>
-        Great Job, <br />
+        Great Job! <br />
         You can now evolve by <br />
-        clicking on your Medoosa
+        clicking on JellyPhil
       </div>
     </div>
   );

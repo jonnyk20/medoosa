@@ -7,3 +7,4 @@ export { default as getRandomModSelections } from "./getRandomModSelections";
 export { default as absorb } from "./absorb";
 export { default as explode } from "./explode";
 export { default as makeCanvas } from "./makeCanvas";
+export { default as isMobile } from "./isMobile";

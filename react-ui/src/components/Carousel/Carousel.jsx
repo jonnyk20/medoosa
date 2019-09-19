@@ -17,7 +17,8 @@ const Carousel = ({
   items,
   afterChange,
   initialSlide = 0,
-  itemsToShow = 3
+  itemsToShow = 3,
+  color
 }) => (
   <div>
     <div className="carousel-container">
@@ -29,7 +30,7 @@ const Carousel = ({
       >
         {items.map((Item, i) => (
           <div key={`${i}-${i}`}>
-            <div className="carousel__item">
+            <div className="carousel__item" style={{ color }}>
               <Item />
             </div>
           </div>

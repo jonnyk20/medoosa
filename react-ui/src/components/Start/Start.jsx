@@ -9,14 +9,14 @@ const Start = () => {
   return (
     <div className="start">
       <div className="start__instructions">
-        <p>JellyPhil is an alien jelly fish, who needs to eat and grow</p>
+        <p>JellyPhil is an alien jellyfish, who needs to eat and grow</p>
       </div>
       <div className="start__cycle">
         <Cycle />
       </div>
       <div className="start__instructions">
-        To help him feed, watch the aquarium, find the fish that he's looking
-        for and touch them on the screen
+        To help him feed, watch the aquarium video, find the fish that he's
+        looking for and click where they are
       </div>
       <div className="start__touch">
         <Touch />
