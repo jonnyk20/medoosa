@@ -126,7 +126,7 @@ const ratios = {
 }
 
 const getVideoDimensions = (screenWidth, ratio = ratios["16:9"]) => {
-  const maxWidth = Math.min(screenWidth, 560)
+  const maxWidth = Math.min(screenWidth, 432)
   const width = widths.reduce((prev, curr) =>
     Math.abs(curr - maxWidth) < Math.abs(prev - maxWidth) ? curr : prev
   )

@@ -8,6 +8,8 @@
     position: relative;
     text-align: center;
     min-height: 50px;
+    background: #00BCD4;
+    border-radius: 20px;
 
     &:focus {
       z-index: 1;
@@ -19,6 +21,7 @@
   }
 
   .slick-slide * {
+
     &:focus {
       outline: none;
     }

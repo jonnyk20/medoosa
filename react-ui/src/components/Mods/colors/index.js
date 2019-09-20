@@ -11,7 +11,10 @@ export const colors = [
 ];
 
 const addColor = color => () => (
-  <div className="color" style={{ backgroundColor: color }}></div>
+  <div
+    className="color"
+    style={{ backgroundColor: color, borderRadius: "15px" }}
+  ></div>
 );
 
 const colorComponents = colors.map(addColor);
