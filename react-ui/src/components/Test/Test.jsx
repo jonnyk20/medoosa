@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "../Button/Button";
 import { colors } from "../Mods/colors";
 import Body from "../Body";
@@ -8,6 +8,12 @@ import "./Test.scss";
 const Test = ({ mods, modSelections, stage, onSetMod, onSetStage }) => {
   const [modType, setModType] = useState(0);
   const color = colors[modSelections[0].value];
+  const afterChange = itemIndex => {
+    onSetMod({
+      modIndex: modType,
+      itemIndex
+    });
+  };
 
   return (
     <div className="test">
@@ -17,7 +23,7 @@ const Test = ({ mods, modSelections, stage, onSetMod, onSetStage }) => {
       <div className="test__mod-selection">
         <Carousel
           items={mods[modType]}
-          afterChange={onSetMod}
+          afterChange={afterChange}
           initialSlide={(modSelections[stage] || {}).value}
           itemsToShow={stage === 4 ? 1 : 3}
           color={color}

@@ -7,10 +7,10 @@ import TestComponent from "../../components/Test/Test";
 const Test = () => {
   const { stage, modSelections } = useSelector(state => state.medoosa);
 
-  const onSetMod = itemIndex => {
+  const onSetMod = ({ modIndex, itemIndex }) => {
     dispatch(
       setModAction({
-        modIndex: stage,
+        modIndex,
         itemIndex
       })
     );
