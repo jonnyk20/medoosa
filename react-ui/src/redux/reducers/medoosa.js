@@ -2,6 +2,7 @@ import {
   SET_MOD,
   SET_MODS,
   ADVANCE_STAGE,
+  SET_STAGE,
   RESET
 } from "../actions/actionTypes";
 
@@ -51,6 +52,8 @@ export default (state = initialState, action) => {
       return { ...state, stage: state.stage + 1 };
     case RESET:
       return { ...state, stage: 0 };
+    case SET_STAGE:
+      return { ...state, stage: action.payload };
     default:
       return state;
   }

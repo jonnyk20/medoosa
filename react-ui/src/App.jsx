@@ -10,13 +10,14 @@ import {
 import Share from "./containers/Share/Share";
 import Play from "./containers/Play/Play";
 import Start from "./containers/Start/Start";
+import Test from "./containers/Test/Test";
 import scatterDots from "./utils/scatterDots";
 import "./App.scss";
 import rootReducer from "./redux/reducers";
 
 const logger = createLogger({
   collapsed: true
-})
+});
 
 const composeEnhancer =
   typeof window !== "undefined"
@@ -38,6 +39,7 @@ function App() {
           <Route path="/" exact component={Start} />
           <Route path="/play" exact component={Play} />
           <Route path="/share" exact component={Share} />
+          <Route path="/test" exact component={Test} />
         </div>
       </Provider>
     </Router>
