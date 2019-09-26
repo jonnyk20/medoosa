@@ -24,8 +24,10 @@ const composeEnhancer =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 
-const createStore = () =>
-  reduxCreateStore(rootReducer, composeEnhancer(applyMiddleware(logger)));
+// const createStore = () =>
+//   reduxCreateStore(rootReducer, composeEnhancer(applyMiddleware(logger)));
+
+const createStore = () => reduxCreateStore(rootReducer)
 
 function App() {
   useEffect(() => {
