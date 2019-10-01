@@ -15,9 +15,9 @@ const LevelUp = ({
   onSetMod,
   modSelections,
   stage,
-  particleCanvasRef
+  particleCanvasRef,
+  onEvolve
 }) => {
-  const [selectedItem, setSelectedItem] = useState(0);
   const [isEvolved, setIsEvolved] = useState(false);
   const [isEvolving, setIsEvolving] = useState(false);
   const [animationCanvas, setAnimationCanvas] = useState(null);
@@ -38,7 +38,7 @@ const LevelUp = ({
     if (!isEvolving && animationCanvas) {
       setIsEvolving(true);
       setTimeout(() => {
-        onSetMod(selectedItem);
+        onEvolve();
       }, 1500);
       setTimeout(() => {
         setIsEvolved(true);
@@ -76,7 +76,7 @@ const LevelUp = ({
 
           <Carousel
             items={items}
-            afterChange={setSelectedItem}
+            afterChange={onSetMod}
             initialSlide={(modSelections[stage] || {}).value}
             itemsToShow={stage === 4 ? 1 : 3}
             color={color}

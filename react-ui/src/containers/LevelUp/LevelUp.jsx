@@ -7,16 +7,19 @@ import mods from "../../components/Mods";
 const LevelUp = ({ onFinish, particleCanvasRef }) => {
   const { stage, modSelections } = useSelector(state => state.medoosa);
 
-  const onSetMod = ({ modIndex: stage, itemIndex }) => {
+  const onSetMod = itemIndex => {
     dispatch(
       setModAction({
         modIndex: stage,
         itemIndex
       })
-    );
-    dispatch(advanceStageAction());
-  };
+      );
+    };
 
+  const onEvolve = () => {
+    dispatch(advanceStageAction());
+  }
+    
   const dispatch = useDispatch();
 
   return (
@@ -27,6 +30,7 @@ const LevelUp = ({ onFinish, particleCanvasRef }) => {
       stage={stage}
       onFinish={onFinish}
       particleCanvasRef={particleCanvasRef}
+      onEvolve={onEvolve}
     />
   );
 };
