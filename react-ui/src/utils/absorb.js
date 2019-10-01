@@ -134,8 +134,8 @@ const absorb = async (canvas, target, origin, particleCanvas) => {
   };
 
   // Go through every location of our button and create a particle
-  for (let localX = 0; localX < width; localX += 2) {
-    for (let localY = 0; localY < height; localY += 2) {
+  for (let localX = 0; localX < width; localX += 4) {
+    for (let localY = 0; localY < height; localY += 4) {
       if (count % reductionFactor === 0) {
         let index = (localY * width + localX) * 4;
         let rgbaColorArr = colorData.slice(index, index + 4);

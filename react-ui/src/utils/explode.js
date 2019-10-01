@@ -116,11 +116,11 @@ const explode = async (canvas, target, particleCanvas) => {
   };
 
   // Go through every location of our button and create a particle
-  for (let localX = 0; localX < width; localX += 4) {
-    for (let localY = 0; localY < height; localY += 4) {
+  for (let localX = 0; localX < width; localX += 8) {
+    for (let localY = 0; localY < height; localY += 8) {
       if (count % reductionFactor === 0) {
-        let index = (localY * width + localX) * 4;
-        let rgbaColorArr = colorData.slice(index, index + 4);
+        let index = (localY * width + localX) * 8;
+        let rgbaColorArr = colorData.slice(index, index + 8);
 
         let bcr = target.getBoundingClientRect();
         let globalX = bcr.left + localX;
