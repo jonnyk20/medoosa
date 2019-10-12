@@ -1,6 +1,8 @@
+
 const absorb = async (canvas, target, origin, particleCanvas) => {
   let ctx;
-
+  let isFinished = false;
+  let frame = 0;
   // canvas.height = 182;
   // canvas.width = 279;
   // container.appendChild(canvas);
@@ -24,26 +26,19 @@ const absorb = async (canvas, target, origin, particleCanvas) => {
   /* An "exploding" particle effect that uses circles */
   const ExplodingParticle = function() {
     // Set how long we want our particle to animate for
-    this.animationDuration = 5000; // in ms
-
-    // Set the speed for our particle
-    this.speed = {
-      x: -5 + Math.random() * 10,
-      y: -5 + Math.random() * 10
-    };
+    this.animationDuration = 3000; // in ms
 
     // Size our particle
     this.radius = 5 + Math.random() * 5;
 
     // Set a max time to live for our particle
-    this.life = 500; //+ Math.random() * 10;
-    this.remainingLife = this.life;
+    this.hasReachedOrigin = false;
 
     // This function will be called by our animation logic later on
     this.draw = ctx => {
       let p = this;
 
-      if (this.remainingLife > 0 && this.radius > 0) {
+      if (this.radius > 0 && !this.hasReachedOrigin) {
         // Draw a circle at the current location
         ctx.beginPath();
         ctx.arc(p.startX, p.startY, p.radius, 0, Math.PI * 2);
@@ -67,72 +62,84 @@ const absorb = async (canvas, target, origin, particleCanvas) => {
         const [red, green, blue, alpha] = modifiedColors;
         const color = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
         ctx.fillStyle = color;
-        // ctx.fill();
         ctx.strokeStyle = color;
-        // ctx.lineWidth = 3;
         ctx.stroke();
-
-        // const origin = {
-        //   x: 0,
-        //   y: window.innerHeight
-        // };
 
         const { startX, startY } = p;
 
         const rangeX = origin.x - startX;
         const rangeY = origin.y - startY;
         const ratio = rangeY / rangeX;
-        const yPixelsPerFrame = rangeY > 0 ? 2 : -2;
+        const yPixelsPerFrame = rangeY > 0 ? 3 : -3;
         const xPixelsPerFrame = yPixelsPerFrame / ratio;
 
+        const distance = Math.sqrt( rangeX * rangeX +  rangeY * rangeY);
+
+        if (distance < 5) {
+          p.hasReachedOrigin = true;
+        }
+
         // Update the particle's location and life
-        p.remainingLife--;
         p.radius -= 0.05;
-        p.startX += xPixelsPerFrame; // p.speed.x;
-        p.startY += yPixelsPerFrame; // p.speed.y;
+        p.startX += xPixelsPerFrame;
+        p.startY += yPixelsPerFrame;
       } 
     };
   };
 
   let particles = [];
-  const createParticleAtPoint = (x, y, colorData) => {
+  const createParticleAtPoint = (x, y, colorData, id) => {
     let particle = new ExplodingParticle();
     particle.rgbArray = colorData;
     particle.startX = x;
     particle.startY = y;
     particle.startTime = Date.now();
-    particle.id = `${x}-${y}`;
+    particle.id = id;
 
     particles.push(particle);
   };
 
   const particleCtx = particleCanvas.getContext("2d");
 
+  const animateParticles = particlesArr => {
+    particlesArr.forEach((particle, i) => {
+      particle.draw(particleCtx);
+      // Simple way to clean up if the last particle is done animating
+      if (i === particles.length - 1) {
+        let percent =
+          (Date.now() - particle.startTime) /
+          particle.animationDuration;
+
+        if (percent > 1) {
+          particles = [];
+          isFinished = true;
+        }
+      }
+    })
+  }
+
+
   const update = () => {
+    frame += 1;
+    // if (frame % 2 === 0) 
     // Clear out the old particles
     if (typeof particleCtx !== "undefined") {
       particleCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     }
     // Draw all of our particles in their new location
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].draw(particleCtx);
-
-      // Simple way to clean up if the last particle is done animating
-      if (i === particles.length - 1) {
-        let percent =
-          (Date.now() - particles[i].startTime) /
-          particles[i].animationDuration;
-
-        if (percent > 1) {
-          particles = [];
-        }
-      }
-    }
+    // if (frame % 2 === 0) {
+      animateParticles(particles);
+    // }
 
     // Animate performantly
-    window.requestAnimationFrame(update);
+    if (!isFinished) {
+      window.requestAnimationFrame(update);
+    } else {
+      ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+    }
   };
 
+  let particleIndex = 0;
   // Go through every location of our button and create a particle
   for (let localX = 0; localX < width; localX += 4) {
     for (let localY = 0; localY < height; localY += 4) {
@@ -148,19 +155,19 @@ const absorb = async (canvas, target, origin, particleCanvas) => {
         //   createParticleAtPoint(globalX, globalY, rgbaColorArr);
         // }
         if (
-          !// rgbaColorArr[0] === 0 &&
-          // rgbaColorArr[1] === 0 &&
-          // rgbaColorArr[2] === 0 &&
-          (rgbaColorArr[3] === 0)
+          !(rgbaColorArr[3] === 0)
         ) {
-          createParticleAtPoint(globalX, globalY, rgbaColorArr);
+          const id = particleIndex;
+          particleIndex += 1;
+          createParticleAtPoint(globalX, globalY, rgbaColorArr, id);
         }
       }
       count++;
     }
   }
 
-  window.requestAnimationFrame(update);
+    window.requestAnimationFrame(update);
+  
 };
 
 export default absorb;
