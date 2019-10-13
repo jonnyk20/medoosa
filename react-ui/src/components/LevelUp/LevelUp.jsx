@@ -25,9 +25,13 @@ const LevelUp = ({
   const animationRef = useRef();
 
   useEffect(() => {
-    if (animationRef.current) {
+    if (animationRef.current && !animationCanvas) {
       const getCanvas = async () => {
-        const canvas = await makeCanvas(animationRef.current);
+        const canvas = await makeCanvas(animationRef.current,  {
+          backgroundColor: "skyblue",
+          height: 250,
+          width: 250
+      });
         setAnimationCanvas(canvas);
       };
       getCanvas();

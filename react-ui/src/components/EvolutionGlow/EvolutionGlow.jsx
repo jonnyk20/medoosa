@@ -7,7 +7,10 @@ const EvolutionGlow = forwardRef(({ hidden }, ref) => {
     className="evolution-glow"
     id="evolution-glow"
     style={{
-      top: hidden ? '-1000px' : 'auto'
+      top: hidden ? '-1000px' : 'auto',
+      background: "skyblue",
+      height: '300px',
+      width: '300px',
     }}
     ref={ref}
   >

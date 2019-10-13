@@ -4,12 +4,14 @@ const explode = async (canvas, target, particleCanvas) => {
 
   ctx = canvas.getContext("2d");
 
-  let reductionFactor = 17;
+  let reductionFactor = 123;
   target.style.visibility = "hidden";
   // Get the color data for our button
   let width = target.offsetWidth;
   let height = target.offsetHeight;
   let colorData = ctx.getImageData(0, 0, width, height).data;
+  // const col = colorData.filter(c => c > 0);
+  // console.log('COL', col)
 
   // Keep track of how many times we've iterated (in order to reduce
   // the total number of particles create)
@@ -78,13 +80,13 @@ const explode = async (canvas, target, particleCanvas) => {
   };
 
   let particles = [];
-  const createParticleAtPoint = (x, y, colorData) => {
+  const createParticleAtPoint = (x, y, colorData, id) => {
     let particle = new ExplodingParticle();
     particle.rgbArray = colorData;
     particle.startX = x;
     particle.startY = y;
     particle.startTime = Date.now();
-    particle.id = `${x}-${y}`;
+    particle.id = id;
     particles.push(particle);
   };
 
@@ -117,15 +119,17 @@ const explode = async (canvas, target, particleCanvas) => {
       window.requestAnimationFrame(update);
     } else {
       particleCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      canvas.remove();
     }
   };
 
+  let particleIndex = 0;
   // Go through every location of our button and create a particle
-  for (let localX = 0; localX < width; localX += 8) {
-    for (let localY = 0; localY < height; localY += 8) {
+  for (let localX = 0; localX < width; localX += 1) {
+    for (let localY = 0; localY < height; localY += 1) {
       if (count % reductionFactor === 0) {
-        let index = (localY * width + localX) * 8;
-        let rgbaColorArr = colorData.slice(index, index + 8);
+        let index = (localY * width + localX) * 4;
+        let rgbaColorArr = colorData.slice(index, index + 4);
 
         let bcr = target.getBoundingClientRect();
         let globalX = bcr.left + localX;
@@ -135,7 +139,9 @@ const explode = async (canvas, target, particleCanvas) => {
         //   createParticleAtPoint(globalX, globalY, rgbaColorArr);
         // }
         if (!(rgbaColorArr[3] === 0)) {
-          createParticleAtPoint(globalX, globalY, rgbaColorArr);
+          const id = particleIndex;
+          particleIndex += 1;
+          createParticleAtPoint(globalX, globalY, rgbaColorArr, id);
         }
       }
       count++;
