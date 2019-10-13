@@ -2,10 +2,6 @@
 const absorb = async (canvas, target, origin, particleCanvas) => {
   let ctx;
   let isFinished = false;
-  let frame = 0;
-  // canvas.height = 182;
-  // canvas.width = 279;
-  // container.appendChild(canvas);
   ctx = canvas.getContext("2d");
 
   // createParticleCanvas();
@@ -120,22 +116,18 @@ const absorb = async (canvas, target, origin, particleCanvas) => {
 
 
   const update = () => {
-    frame += 1;
-    // if (frame % 2 === 0) 
     // Clear out the old particles
     if (typeof particleCtx !== "undefined") {
       particleCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     }
     // Draw all of our particles in their new location
-    // if (frame % 2 === 0) {
       animateParticles(particles);
-    // }
 
     // Animate performantly
     if (!isFinished) {
       window.requestAnimationFrame(update);
     } else {
-      ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+      particleCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     }
   };
 

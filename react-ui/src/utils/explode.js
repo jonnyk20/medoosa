@@ -1,6 +1,6 @@
 const explode = async (canvas, target, particleCanvas) => {
   let ctx;
-
+  let isFinished = false;
 
   ctx = canvas.getContext("2d");
 
@@ -20,7 +20,7 @@ const explode = async (canvas, target, particleCanvas) => {
   /* An "exploding" particle effect that uses circles */
   const ExplodingParticle = function() {
     // Set how long we want our particle to animate for
-    this.animationDuration = 5000; // in ms
+    this.animationDuration = 3000; // in ms
 
     // Set the speed for our particle
     this.speed = {
@@ -107,12 +107,17 @@ const explode = async (canvas, target, particleCanvas) => {
 
         if (percent > 1) {
           particles = [];
+          isFinished = true;
         }
       }
     }
 
     // Animate performantly
-    window.requestAnimationFrame(update);
+    if (!isFinished) {
+      window.requestAnimationFrame(update);
+    } else {
+      particleCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    }
   };
 
   // Go through every location of our button and create a particle
