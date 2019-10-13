@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Fragment } from "react";
+import React, { useState, useRef, useEffect, Fragment, useCallback } from "react";
 import YouTube from "react-youtube";
 import { MdArrowUpward, MdArrowDownward } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -76,6 +76,20 @@ const finishContent = (
   </div>
 );
 
+const useTargetRef = () => {
+  const [targetRefNode, setTargetRefNode] = useState(null);
+  const [currentId, setCurrentId] = useState(null);
+
+  const targetRef = useCallback((node, id) => {
+    if (node !== null && id !== currentId) {
+      setCurrentId(id)
+      setTargetRefNode(node);
+    }
+  }, [currentId, targetRefNode]);
+
+  return [targetRefNode, targetRef, currentId];
+}
+
 const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const [video, setVideo] = useState(null);
   const [videoDimensions, setVideoDimensions] = useState({});
@@ -98,9 +112,10 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const videoRef = useRef();
   const componentIsMounted = useRef(true);
   const bodyRef = useRef();
-  const targetRef = useRef();
   const particleCanvasRef = useRef();
-  const targetCanvasRef = useRef();
+  // const targetId = targetAnimal ? targetAnimal.id : null;
+
+  const [targetRefNode, targetRef, currentId] = useTargetRef();
 
   useEffect(() => {
     const { innerWidth: width, innerHeight: height } = window;
@@ -109,26 +124,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
     setWindowDimensions({ width, height });
   }, []);
 
-  useEffect(() => {
-    if (targetRef.current) {
-      const getCanvas = async () => {
-        const canvas = await makeCanvas(targetRef.current);
-        setAnimationCanvas(canvas);
-      };
-      getCanvas();
-    }
-  }, [targetRef.current]);
 
-  useEffect(() => {
-    if (!isLevelingUp && targetChanged) {
-      const getCanvas = async () => {
-        const canvas = await makeCanvas(targetRef.current);
-        setAnimationCanvas(canvas);
-      };
-      setTargetChanged(false);
-      getCanvas();
-    }
-  }, [isLevelingUp]);
 
   const { width: videoWidth, height: videoHeight } = videoDimensions;
 
@@ -157,7 +153,6 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
       isConfirming ||
       isLevelUpPending ||
       !!spot ||
-      !targetCanvasRef ||
       !targetRef ||
       !animationCanvas ||
       targetChanged
@@ -262,7 +257,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   const targetContent = (
     <Fragment>
       {isConfirming && <SpottingConfirmation />}
-      {targetAnimal && <Target ref={targetRef} target={targetAnimal.id} />}
+      {targetAnimal && <Target ref={ n => targetRef(n, targetAnimal.id)} target={targetAnimal.id} />}
       {isConfirming ? (
         <div>You got it!</div>
       ) : (
@@ -285,6 +280,7 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
   );
 
   let mainContent = introContent;
+  let targetVisible = false;
 
   switch (true) {
     case isLevelUpPending:
@@ -300,11 +296,34 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
       mainContent = null;
       break;
     case targetAnimal && playerState !== -1:
+      targetVisible = true;
       mainContent = targetContent;
       break;
     default:
       break;
   }
+
+  const [isReadyToSetCanvas, setIsReadyTosetCanvas] = useState(false);
+
+  useEffect(() => {
+    if (!isReadyToSetCanvas && targetVisible && !!targetRefNode) {
+      if (!animationCanvas || targetChanged) {
+        setIsReadyTosetCanvas(true)
+      }
+    }
+  }, [targetVisible, targetRefNode, targetChanged, animationCanvas])
+
+  useEffect(() => {
+    if (isReadyToSetCanvas) {
+      const getCanvas = async () => {
+        const canvas = await makeCanvas(targetRefNode);
+        setAnimationCanvas(canvas);
+        setTargetChanged(false);
+        setIsReadyTosetCanvas(false)
+      };
+      getCanvas();
+    }
+  }, [isReadyToSetCanvas]);
 
   const thanos = () => {
     const { current: body } = bodyRef;
@@ -313,13 +332,13 @@ const Play = ({ frames, stage, modSelections, targetAnimal, onHitTarget }) => {
     const y = top + (bottom - top) / 2;
     absorb(
       animationCanvas,
-      targetRef.current,
+      targetRefNode,
       { x, y },
-      particleCanvasRef.current,
-      targetCanvasRef.current
+      particleCanvasRef.current
     );
     setTimeout(() => {
       setLevelUpPending(true);
+      // setAnimationCanvas(null)
     }, 3000);
   };
 

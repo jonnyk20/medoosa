@@ -1,17 +1,17 @@
 
+
 const absorb = async (canvas, target, origin, particleCanvas) => {
   let ctx;
   let isFinished = false;
   ctx = canvas.getContext("2d");
 
-  // createParticleCanvas();
 
-  let reductionFactor = 17;
-  target.style.visibility = "hidden";
+  let reductionFactor = 93;
   // Get the color data for our button
   let width = target.offsetWidth;
   let height = target.offsetHeight;
-  let colorData = ctx.getImageData(0, 0, width, height).data;
+  let colorData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  target.style.visibility = "hidden";
 
   // Keep track of how many times we've iterated (in order to reduce
   // the total number of particles create)
@@ -54,6 +54,7 @@ const absorb = async (canvas, target, origin, particleCanvas) => {
           return color + changeRate;
         });
 
+
         this.color = modifiedColors;
         const [red, green, blue, alpha] = modifiedColors;
         const color = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
@@ -66,10 +67,11 @@ const absorb = async (canvas, target, origin, particleCanvas) => {
         const rangeX = origin.x - startX;
         const rangeY = origin.y - startY;
         const ratio = rangeY / rangeX;
-        const yPixelsPerFrame = rangeY > 0 ? 3 : -3;
+        const yPixelsPerFrame = rangeY > 0 ? 2 : -2;
         const xPixelsPerFrame = yPixelsPerFrame / ratio;
 
         const distance = Math.sqrt( rangeX * rangeX +  rangeY * rangeY);
+
 
         if (distance < 5) {
           p.hasReachedOrigin = true;
@@ -127,14 +129,16 @@ const absorb = async (canvas, target, origin, particleCanvas) => {
     if (!isFinished) {
       window.requestAnimationFrame(update);
     } else {
+      target.style.visibility = "hidden";
       particleCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      canvas.remove();
     }
   };
 
   let particleIndex = 0;
   // Go through every location of our button and create a particle
-  for (let localX = 0; localX < width; localX += 4) {
-    for (let localY = 0; localY < height; localY += 4) {
+  for (let localX = 0; localX < width; localX += 1) {
+    for (let localY = 0; localY < height; localY += 1) {
       if (count % reductionFactor === 0) {
         let index = (localY * width + localX) * 4;
         let rgbaColorArr = colorData.slice(index, index + 4);

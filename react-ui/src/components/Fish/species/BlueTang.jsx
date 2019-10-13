@@ -5,6 +5,9 @@ const BlueTang = () => (
     xmlns="http://www.w3.org/2000/svg"
     data-name="Layer 1 copy"
     viewBox="0 0 1000 500"
+    data-test-id="blue-tang"
+    height="100"
+    width="279"
   >
     <path
       fill="#151516"
