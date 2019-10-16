@@ -8,7 +8,8 @@ import "./Test.scss";
 const Test = ({ mods, modSelections, stage, onSetMod, onSetStage }) => {
   const [modType, setModType] = useState(0);
   const color = colors[modSelections[0].value];
-  const afterChange = itemIndex => {
+  const afterChange = (prev, itemIndex) => {
+    console.log('BEFORE CHANGE', modType, prev, itemIndex)
     onSetMod({
       modIndex: modType,
       itemIndex

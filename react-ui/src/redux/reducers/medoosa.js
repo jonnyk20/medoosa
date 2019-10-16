@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   name: "Medoosa",
-  stage: 0,
+  stage: 5,
   modSelections: [
     {
       name: "color",
@@ -34,6 +34,7 @@ const initialState = {
 };
 
 const updateMod = (state, newSelection) => {
+  console.log('SETTING MOD', newSelection)
   const modSelections = state.modSelections.map((mod, i) =>
     i === newSelection.modIndex
       ? { ...mod, value: newSelection.itemIndex }

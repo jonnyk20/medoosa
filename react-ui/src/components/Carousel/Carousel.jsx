@@ -26,7 +26,7 @@ const Carousel = ({
         {...settings}
         slidesToShow={itemsToShow}
         initialSlide={initialSlide}
-        afterChange={afterChange}
+        beforeChange={afterChange}
       >
         {items.map((Item, i) => (
           <div key={`${i}-${i}`}>

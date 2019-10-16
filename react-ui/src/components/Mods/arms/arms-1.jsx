@@ -2,7 +2,7 @@ import React from "react"
 
 const Arms = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260.45 85.44">
-    <title>Asset 119</title>
+    <title>Arms 1</title>
     <g id="Layer_2" data-name="Layer 2">
       <g id="Layer_1-2" data-name="Layer 1">
         <line
