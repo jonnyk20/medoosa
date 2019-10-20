@@ -15,7 +15,7 @@ const Mouth = () => (
             stroke: "#000",
             strokeMiterlimit: 10,
             strokeLinecap: "round",
-            strokeWidth: "5px",
+            strokeWidth: "20px",
           }}
         />
         <polygon
@@ -25,7 +25,7 @@ const Mouth = () => (
             stroke: "#000",
             strokeMiterlimit: 10,
             strokeLinecap: "round",
-            strokeWidth: "5px",
+            strokeWidth: "10px",
           }}
         />
         <polygon
@@ -35,7 +35,7 @@ const Mouth = () => (
             stroke: "#000",
             strokeMiterlimit: 10,
             strokeLinecap: "round",
-            strokeWidth: "5px",
+            strokeWidth: "10px",
           }}
         />
       </g>
