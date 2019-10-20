@@ -11,7 +11,7 @@ const Eyes = () => (
             fill: "#ff0",
             stroke: "#000",
             strokeMiterlimit: 10,
-            strokeWidth: "3px",
+            strokeWidth: "7px",
           }}
         />
         <polygon
@@ -20,7 +20,7 @@ const Eyes = () => (
             fill: "#ff0",
             stroke: "#000",
             strokeMiterlimit: 10,
-            strokeWidth: "3px",
+            strokeWidth: "7px",
           }}
         />
       </g>

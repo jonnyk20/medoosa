@@ -12,7 +12,7 @@ const Eyes = () => (
             stroke: "#000",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: "3px",
+            strokeWidth: "10px",
           }}
         />
         <path
@@ -22,7 +22,7 @@ const Eyes = () => (
             stroke: "#000",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: "3px",
+            strokeWidth: "10px",
           }}
         />
       </g>

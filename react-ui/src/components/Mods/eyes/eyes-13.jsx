@@ -13,7 +13,8 @@ const Eyes = () => (
             fill: "none",
             stroke: "#000",
             strokeMiterlimit: 10,
-            strokeWidth: "3px",
+            strokeWidth: "15px",
+            strokeLinecap: "round"
           }}
         />
         <line
@@ -25,7 +26,8 @@ const Eyes = () => (
             fill: "none",
             stroke: "#000",
             strokeMiterlimit: 10,
-            strokeWidth: "3px",
+            strokeWidth: "15px",
+            strokeLinecap: "round"
           }}
         />
       </g>

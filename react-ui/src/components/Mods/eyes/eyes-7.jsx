@@ -8,48 +8,48 @@ const Eyes = () => (
         <circle
           cx="19.72"
           cy="21.42"
-          r="18.22"
+          r="25"
           style={{
             fill: "none",
             stroke: "#000",
             strokeMiterlimit: 10,
-            strokeWidth: "3px",
+            strokeWidth: "7px",
           }}
         />
         <circle
           cx="83.28"
           cy="19.72"
-          r="18.22"
+          r="25"
           style={{
             fill: "none",
             stroke: "#000",
             strokeMiterlimit: 10,
-            strokeWidth: "3px",
+            strokeWidth: "7px",
           }}
         />
-        <circle cx="19.72" cy="21.42" r="5.93" />
+        <circle cx="19.72" cy="21.42" r="15" />
         <circle
-          cx="18.03"
-          cy="19.72"
-          r="2.54"
+          cx="16"
+          cy="18"
+          r="4"
           style={{
             fill: "#fff",
           }}
         />
-        <circle cx="83.28" cy="20.57" r="5.93" />
+        <circle cx="83.28" cy="20.57" r="15" />
         <circle
-          cx="81.58"
-          cy="18.87"
-          r="2.54"
+          cx="78"
+          cy="18"
+          r="4"
           style={{
             fill: "#fff",
           }}
         />
         <rect
-          x="36.67"
+          x="42"
           y="19.72"
-          width="28.81"
-          height="4.24"
+          width="18"
+          height="10"
           rx="2.12"
           ry="2.12"
         />

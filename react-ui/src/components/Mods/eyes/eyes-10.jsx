@@ -15,10 +15,10 @@ const Eyes = () => (
             stroke: "#000",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: "7px",
+            strokeWidth: "10px",
           }}
         />
-        <circle cx="18.82" cy="17.75" r="7.26" />
+        <circle cx="18.82" cy="17.75" r="12" />
         <line
           x1="103.5"
           y1="4.58"
@@ -29,10 +29,10 @@ const Eyes = () => (
             stroke: "#000",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: "7px",
+            strokeWidth: "10px",
           }}
         />
-        <circle cx="88.18" cy="18.82" r="7.26" />
+        <circle cx="88.18" cy="18.82" r="12" />
       </g>
     </g>
   </svg>

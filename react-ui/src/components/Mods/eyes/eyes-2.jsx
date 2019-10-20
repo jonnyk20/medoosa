@@ -11,7 +11,7 @@ const Eyes = () => (
           x="21.49"
           y="8.21"
           width="56.42"
-          height="3.24"
+          height="6"
           rx="1.62"
           ry="1.62"
         />

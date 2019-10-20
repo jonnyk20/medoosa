@@ -15,7 +15,7 @@ const Mouth = () => (
             stroke: "#000",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: "20px",
+            strokeWidth: "25px",
           }}
         />
       </g>
