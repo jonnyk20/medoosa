@@ -15,14 +15,14 @@ import scatterDots from "./utils/scatterDots";
 import "./App.scss";
 import rootReducer from "./redux/reducers";
 
-const logger = createLogger({
-  collapsed: true
-});
+// const logger = createLogger({
+//   collapsed: true
+// });
 
-const composeEnhancer =
-  typeof window !== "undefined"
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : compose;
+// const composeEnhancer =
+//   typeof window !== "undefined"
+//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+//     : compose;
 
 // const createStore = () =>
 //   reduxCreateStore(rootReducer, composeEnhancer(applyMiddleware(logger)));

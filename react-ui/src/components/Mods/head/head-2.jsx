@@ -7,14 +7,14 @@ const Head = () => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 450 450"
   >
-    <title>Artboard 36</title>
+    <title>head 2</title>
     <path
       d="M128.89,104.44s-22.72,46.26,7.7,61.63l18.62-18.43S134.66,150.66,128.89,104.44Z"
       style={{
         fill: "currentColor",
         stroke: "#000",
         strokeMiterlimit: 10,
-        strokeWidth: "5px",
+        strokeWidth: "10px",
         transform: "translateX(-10px)",
       }}
     />
@@ -24,7 +24,7 @@ const Head = () => (
         fill: "currentColor",
         stroke: "#000",
         strokeMiterlimit: 10,
-        strokeWidth: "5px",
+        strokeWidth: "10px",
         transform: "translateX(5px)",
       }}
     />

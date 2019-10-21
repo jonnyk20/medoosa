@@ -7,7 +7,7 @@ const Head = () => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 450 450"
   >
-    <title>Artboard 32</title>
+    <title>Head</title>
     <path
       d="M297.6,107.89c-4.45.23-7.22,6.31-1.22,10.41a2.7,2.7,0,0,0,1,.42c7.87,1.59,13.93-8.64,4.58-15.65a6.49,6.49,0,0,0-3-1.25,12,12,0,0,0-13.75,12.48A15,15,0,0,0,301,128.52a18.73,18.73,0,0,0,17.77-19.66,23.42,23.42,0,0,0-24.58-22.22c-16.15.82-24.74,15-23.93,31.2l19.93,7.46"
       style={{
@@ -15,7 +15,7 @@ const Head = () => (
         stroke: "#000",
         strokeLinecap: "round",
         strokeMiterlimit: 10,
-        storokeWidth: "3px",
+        strokeWidth: "6px",
       }}
     />
     <path
@@ -25,7 +25,7 @@ const Head = () => (
         stroke: "#000",
         strokeLinecap: "round",
         strokeMiterlimit: 10,
-        storokeWidth: "3px",
+        strokeWidth: "6px",
       }}
     />
   </svg>

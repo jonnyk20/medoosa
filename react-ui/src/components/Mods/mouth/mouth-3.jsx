@@ -1,46 +1,23 @@
 import React from "react"
 
 const Mouth = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 106.83 20">
-    <title>Mouth 3</title>
-    <g id="Layer_2" data-name="Layer 2">
-      <g id="Layer_1-2" data-name="Layer 1">
-        <line
-          x1="4.58"
-          y1="2.5"
-          x2="104.33"
-          y2="2.5"
-          style={{
-            fill: "#fff",
-            stroke: "#000",
-            strokeMiterlimit: 10,
-            strokeLinecap: "round",
-            strokeWidth: "5px",
-          }}
-        />
-        <polygon
-          points="19.63 28.99 34.92 2.5 4.33 2.5 19.63 28.99"
-          style={{
-            fill: "#fff",
-            stroke: "#000",
-            strokeMiterlimit: 10,
-            strokeLinecap: "round",
-            strokeWidth: "5px",
-          }}
-        />
-        <polygon
-          points="86.4 29.58 101.7 3.08 72.49 3.33 86.4 29.58"
-          style={{
-            fill: "#fff",
-            stroke: "#000",
-            strokeMiterlimit: 10,
-            strokeLinecap: "round",
-            strokeWidth: "5px",
-          }}
-        />
-      </g>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125.2 30">
+     <title>mouth 3</title>
+  <g data-name="Layer 2">
+    <g
+      fill="#fff"
+      stroke="#000"
+      strokeLinecap="round"
+      strokeMiterlimit="10"
+      strokeWidth="12"
+      data-name="Layer 1"
+    >
+      <path d="M10.64 6.18L110.39 6.18"></path>
+      <path d="M25.69 32.67L40.98 6.18 10.39 6.18 25.69 32.67z"></path>
+      <path d="M99.46 32.58L114.76 6.09 85.56 6.34 99.46 32.58z"></path>
     </g>
-  </svg>
+  </g>
+</svg>
 )
 
 export default Mouth

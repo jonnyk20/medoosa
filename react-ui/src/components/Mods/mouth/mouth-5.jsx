@@ -12,17 +12,7 @@ const Mouth = () => (
             stroke: "#000",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: "5px",
-          }}
-        />
-        <path
-          d="M6,4.91s44.53,45.31,100,0"
-          style={{
-            fill: "none",
-            stroke: "#000",
-            strokeLinecap: "round",
-            strokeMiterlimit: 10,
-            strokeWidth: "5px",
+            strokeWidth: "10px",
           }}
         />
       </g>

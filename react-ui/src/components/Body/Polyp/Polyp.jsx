@@ -25,7 +25,7 @@ const Polyp = ({ modSelections, aura, glowFilter, filterProp }) => {
             fill: "currentcolor",
             stroke: "#000",
             strokeMiterlimit: 10,
-            strokeWidth: "10px"
+            strokeWidth: "20px"
           }}
           filter={filterProp}
         />

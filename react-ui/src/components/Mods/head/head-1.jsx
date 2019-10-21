@@ -7,7 +7,7 @@ const Head = () => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 450 450"
   >
-    <title>Artboard 36 copy</title>
+    <title>head 1</title>
     <path
       d="M286.62,105.06c0,6.94-27.76,14.24-62,14.24s-62-7.32-62-14.26,27.76-12.56,62-12.56S286.62,98.12,286.62,105.06Z"
       style={{

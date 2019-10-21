@@ -38,7 +38,7 @@ const Test = ({ mods, modSelections, stage, onSetMod, onSetStage }) => {
         ))}
       </div>
       <div className="test__stage-selection">
-        {[0, 1, 2, 4, 5].map(num => (
+        {[0, 1, 2, 3, 4, 5].map(num => (
           <Button key={num} onClick={() => onSetStage(num)}>
             {num}
           </Button>
