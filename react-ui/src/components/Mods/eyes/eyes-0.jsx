@@ -1,7 +1,7 @@
 import React from "react"
 
 const Eyes = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 113.22 23.11">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 5 113.22 23.11">
     <title>Eyes 0</title>
   <g data-name="Layer 2">
     <g stroke="#000" strokeMiterlimit="10" data-name="Layer 1">

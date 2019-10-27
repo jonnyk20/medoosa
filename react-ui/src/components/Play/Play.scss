@@ -111,6 +111,8 @@
   &__instructions {
     grid-column: 1 / -1;
     padding: 10px;
+    border: solid 1px skyblue;
+    padding: 5px 10px;
 
     .brand-text {
       font-weight: bold;
